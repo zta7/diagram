@@ -1,45 +1,72 @@
-import createEngine, {
-  BaseEvent,
-  DiagramModel
-} from '@projectstorm/react-diagrams'
-import { CanvasWidget } from '@projectstorm/react-canvas-core'
-import { TextFactory, TextNodeModel } from 'components/diagram/Text'
+
+import FunctionBlock from 'components/diagram/FunctionBlock';
+import TextNode from 'components/diagram/TextNode';
+import { useCallback, useState, useMemo } from 'react';
+import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node } from 'reactflow';
+import 'reactflow/dist/style.css';
 
 function App() {
-  const engine = createEngine()
-  const model = new DiagramModel()
+  const nodeTypes = useMemo(() => ({ TextNode, FunctionBlock }), []);
 
-  engine.getNodeFactories().registerFactory(new TextFactory())
+  const initialNodes = [
+    { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
+    { id: '2', position: { x: 0, y: 0 }, data: { label: '1' } },
+    { id: '3', type: 'TextNode', position: { x: 50, y: 50 }, data: {value: 123} },
+    { id: '4', type: 'FunctionBlock', position: { x: 150, y: 150 }, data: {
+      name: '123',
+      inputEvents: Array.from({ length: 10 }, (e, i) => ({ id: `inputEvent-${i}`, name: `inputEvent-${i}` })),
+      outputEvents: Array.from({ length: 15 }, (e, i) => ({ id: `outputEvent-${i}`, name: `outputEvent-${i}` })),
+      inputs: Array.from({ length: 15 }, (e, i) => ({ id: `input-${i}`, name: `input-${i}` })),
+      outputs: Array.from({ length: 10 }, (e, i) => ({ id: `output-${i}`, name: `output-${i}` }))
+    } },
+    { id: '5', type: 'FunctionBlock', position: { x: 150, y: 150 }, data: {
+      name: '123',
+      inputEvents: Array.from({ length: 10 }, (e, i) => ({ id: `inputEvent-${i}`, name: `inputEvent-${i}` })),
+      outputEvents: Array.from({ length: 15 }, (e, i) => ({ id: `outputEvent-${i}`, name: `outputEvent-${i}` })),
+      inputs: Array.from({ length: 15 }, (e, i) => ({ id: `input-${i}`, name: `input-${i}` })),
+      outputs: Array.from({ length: 10 }, (e, i) => ({ id: `output-${i}`, name: `output-${i}` }))
+    } },
+  ];
+  const initialEdges = [
+    { id: 'e1-2', source: '1', target: '2' }
+  ];
 
-  const node1 = new TextNodeModel({ value: 'abc' })
-  node1.setPosition(100, 100)
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
 
-  const node2 = new TextNodeModel({ value: 'rgb(0,192,255)' })
-  node2.setPosition(200, 100)
-
-  const models = model.addAll(node1, node2)
-
-  models.forEach((item) => {
-    item.registerListener({
-      selectionChanged(event: any) {
-        console.log(event)
-        // if(event)
-      }
-    })
-  })
-
-  // model.sele
-
-  engine.setModel(model)
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) => setNodes((nds: Node[]) => applyNodeChanges(changes, nds)),
+    [setNodes]
+  );
+  const onEdgesChange = useCallback(
+    (changes: EdgeChange[]) => setEdges((eds: Edge[]) => applyEdgeChanges(changes, eds)),
+    [setEdges]
+  );
+  const onConnect = useCallback(
+    (connection: any) => setEdges((eds) => {
+      console.log(eds)
+      return addEdge(connection, eds)
+    }),
+    [setEdges]
+  );
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen font-mono">
       <div className="flex h-full w-full flex-row">
         <div>1</div>
-        <div className="w-0 grow">
-          <CanvasWidget engine={engine} className="h-full w-full" />
+        <div className="w-0 grow" >
+          <ReactFlow
+            nodeTypes={nodeTypes}
+            nodes={nodes}
+            edges={edges}  
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}>
+          </ReactFlow>
         </div>
-        <div>22</div>
+        <div>
+          <div>1</div>
+        </div>
       </div>
     </div>
   )
