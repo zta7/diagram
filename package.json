@@ -23,8 +23,12 @@
   },
   "dependencies": {
     "@projectstorm/react-diagrams": "^7.0.2",
+    "@radix-ui/react-form": "^0.0.2",
+    "classnames": "^2.3.2",
+    "leva": "^0.9.34",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-selecto": "^1.22.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",

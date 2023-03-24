@@ -1,33 +1,33 @@
 import createEngine, {
-  DefaultLinkModel,
   DefaultNodeModel,
+  BaseEvent,
   DiagramModel
 } from '@projectstorm/react-diagrams'
-
 import { CanvasWidget } from '@projectstorm/react-canvas-core'
+import { TextFactory, TextNodeModel } from './diagram/Text'
 
 export default () => {
   const engine = createEngine()
-  // node 1
-  const node1 = new DefaultNodeModel({
-    name: 'Node 1',
-    color: 'rgb(0,192,255)'
-  })
-  node1.setPosition(100, 100)
-  const port1 = node1.addOutPort('Out')
-
-  // node 2
-  const node2 = new DefaultNodeModel({
-    name: 'Node 1',
-    color: 'rgb(0,192,255)'
-  })
-  node2.setPosition(200, 100)
-  const port2 = node2.addOutPort('Out')
-  // link them and add a label to the link
-  const link = port1.link<DefaultLinkModel>(port2)
-  // link.addLabel('Hello World!')
   const model = new DiagramModel()
-  model.addAll(node1, node2, link)
+
+  engine.getNodeFactories().registerFactory(new TextFactory())
+
+  const node1 = new TextNodeModel({ value: 'abc' })
+  node1.setPosition(100, 100)
+
+  const node2 = new TextNodeModel({ value: 'rgb(0,192,255)' })
+  node2.setPosition(200, 100)
+
+  const models = model.addAll(node1, node2)
+
+  models.forEach((item) => {
+    item.registerListener({
+      eventDidFire: (evt: BaseEvent) => {
+        console.log(evt)
+      }
+    })
+  })
+
   engine.setModel(model)
 
   return (
