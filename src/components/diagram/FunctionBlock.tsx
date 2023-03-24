@@ -1,8 +1,5 @@
 import { useCallback } from 'react';
-import { Handle, Position } from 'reactflow';
-
-const handleStyle = { left: 10 };
-
+import { Handle, Position, Node, useReactFlow } from 'reactflow';
 
 const InputEvent = ({ name, id  } : any) => {
   return (
@@ -40,14 +37,54 @@ const Output = ({ name, id  } : any) => {
   )
 }
 
+interface InputEvent {
+  id: string
+  name: string
+}
 
-export default ({ data }: any = {}) => {
+interface OutputEvent {
+  id: string
+  name: string
+}
+
+interface Input {
+  id: string
+  name: string
+}
+
+interface Output {
+  id: string
+  name: string
+}
+
+export interface FunctionBlockData {
+  name: string,
+  inputEvents: Array<InputEvent>
+  outputEvents: Array<OutputEvent>
+  inputs: Array<Input>
+  outputs: Array<Output>
+}
+
+
+export default ({ data, id }: Node<FunctionBlockData> ) => {
   const { name, inputEvents, outputEvents, inputs, outputs } = data
-
+  const onNameInput = (evt: any) => {
+    const {getNode, setNodes } = useReactFlow()
+    const self = getNode(id) as Node
+    setNodes([
+      {
+        ...self,
+        data: {
+          name: evt.target.value
+        }
+      }
+    ])
+    // name = evt.target.value
+  }
   return (
     <div className='flex flex-col flex-nowrap font-bold'>
       <div className='flex flex-row items-center justify-center'>
-        <input type="text" className='text-center'/>
+        <input type="text" className='text-center' value={name} onInput={onNameInput}/>
       </div>
       <div className='flex flex-row flex-nowrap justify-between gap-1 border-2 border-black'>
         <div className='flex flex-col flex-nowrap'>

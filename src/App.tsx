@@ -3,7 +3,7 @@ import FunctionBlock from 'components/diagram/FunctionBlock';
 import TextNode from 'components/diagram/TextNode';
 import { useCallback, useState, useMemo } from 'react';
 import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node } from 'reactflow';
-import 'reactflow/dist/style.css';
+import 'reactflow/dist/base.css';
 
 function App() {
   const nodeTypes = useMemo(() => ({ TextNode, FunctionBlock }), []);
