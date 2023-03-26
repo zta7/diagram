@@ -81,7 +81,9 @@ function App() {
     <ReactFlowProvider>
       <div className="h-screen w-screen font-mono select-none">
         <div className="flex h-full w-full flex-row flex-nowrap">
-          <div>1</div>
+          <div className='h-full'>
+            1
+          </div>
           <div className="w-0 grow" >
             <ReactFlow
               nodeTypes={nodeTypes}
