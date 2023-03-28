@@ -8,10 +8,4 @@ export default defineConfig({
     react(), 
     tsconfigPaths(),
   ],
-  // test: {
-  //   globals: true,
-  //   environment: 'happy-dom',
-  //   setupFiles: '.vitest/setup',
-  //   include: ['**/test.{ts,tsx}']
-  // }
 })
