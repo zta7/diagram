@@ -4,7 +4,11 @@ import { Text } from 'components/diagram/nodes/TextNode';
 import { Input } from 'components/ui/Input';
 import ScrollArea from 'components/ui/ScrollArea';
 import { useCallback, useState } from 'react';
-import ReactFlow, { applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node, OnSelectionChangeParams, ReactFlowProvider, Controls } from 'reactflow';
+import ReactFlow, { applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node, OnSelectionChangeParams, ReactFlowProvider } from 'reactflow';
+import { Controls } from 'components/diagram/controls'
+import { Drag } from 'components/ui/Drag';
+import { Drop } from 'components/ui/Drop';
+import {DndContext, DragOverlay} from '@dnd-kit/core';
 
 const nodeTypes = {
   Text,
@@ -16,6 +20,15 @@ const edgeTypes = {
 }
 
 function App() {
+  const [draggingId, setDraggingId] = useState(null);
+  const onDragStart = useCallback((evt: any) => {
+    console.log(evt)
+  }, [])
+  const onDragEnd = useCallback(() => setDraggingId(null), [])
+  const onDragMove = useCallback((evt: any) => {
+    // console.log()
+  }, [])
+
   const initialNodes = [
     { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
     { id: '2', position: { x: 0, y: 0 }, data: { label: '1' } },
@@ -85,7 +98,6 @@ function App() {
     return ''
   }, [selection])
 
-
   // const onConnect = useCallback(
   //   (connection: Connection) => setEdges((eds) => {
   //     return addEdge(connection, eds)
@@ -94,40 +106,50 @@ function App() {
   // );
 
   return (
-    <ReactFlowProvider>
-      <div className="h-screen w-screen select-none font-mono">
-        <div className="flex h-full w-full flex-row flex-nowrap">
-          <div className='h-full min-w-[160px]'>
-            <div className='h-8 border-b'></div>
-            1
-          </div>
-          <div className="w-0 grow border-x">
-            <div className='h-8 border-b'>
-              <button className='btn-ghost'>+</button>
-            </div>
-            <ReactFlow
-              nodeTypes={nodeTypes}
-              edgeTypes={edgeTypes}
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onSelectionChange={onSelectionchange}
-            // onConnect={onConnect}
-            >
-            </ReactFlow>
-          </div>
-          <ScrollArea className="h-full w-[240px] overflow-hidden">
-            <div className='absolute inset-x-0'>
-              <div className='flex h-8 flex-row items-center justify-center border-b'>{selection?.type}</div>
-              <div className='px-1'>
-                {getInspector()}
+    <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragMove={onDragMove}>
+      <ReactFlowProvider>
+        <div className="h-screen w-screen select-none font-mono">
+          <div className="flex h-full w-full flex-row flex-nowrap">
+            <div className='h-full min-w-[160px]'>
+              <div className='h-8 border-b'>
+                <Input className='h-full w-full border-none' placeholder='Search'/>
               </div>
+              <Drag id='drag-1'/>
+              <Drag id='drag-2'/>
+              {/* <Drop id='drop-1'/> */}
             </div>
-          </ScrollArea>
+            <div className="flex w-0 grow flex-col flex-nowrap border-x">
+              {/* <div className='h-8 border-b'>
+                <button className='btn-ghost'>+</button>
+              </div> */}
+              <Controls className='flex h-8 flex-row flex-nowrap items-center border-b'/>
+
+              <Drop id='drop-1' className='grow'>
+                <ReactFlow
+                  nodeTypes={nodeTypes}
+                  edgeTypes={edgeTypes}
+                  nodes={nodes}
+                  edges={edges}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onSelectionChange={onSelectionchange}
+                // onConnect={onConnect}
+                >
+                </ReactFlow>
+              </Drop>
+            </div>
+            <ScrollArea className="h-full w-[240px] overflow-hidden">
+              <div className='absolute inset-x-0'>
+                <div className='flex h-8 flex-row items-center justify-center border-b'>{selection?.type}</div>
+                <div className='px-1'>
+                  {getInspector()}
+                </div>
+              </div>
+            </ScrollArea>
+          </div>
         </div>
-      </div>
-    </ReactFlowProvider>
+      </ReactFlowProvider>
+    </DndContext>
   )
 }
 
