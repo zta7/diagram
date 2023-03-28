@@ -1,6 +1,5 @@
 import { ChangeEvent, useCallback , useMemo, useState } from 'react';
 import { Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, NodeToolbar, XYPosition, useStore  } from 'reactflow';
-import Icon from '@icon-park/react/es/all';
 import { type as EventEdgeType} from '../edges/EventEdge';
 import cx from 'classnames'
 import { Input } from 'components/ui/Input';
@@ -134,10 +133,10 @@ export const FunctionBlock =  ({ data, id, selected }:  Prop.FunctionBlockProps 
 
   return (
     <>
-      <NodeToolbar offset={0} className="flex flex-row" isVisible={showContent}>
+      {/* <NodeToolbar offset={0} className="flex flex-row" isVisible={showContent}>
         <Icon type="Plus"/>
         <Icon type="Delete"/>
-      </NodeToolbar>
+      </NodeToolbar> */}
       <div className='flex flex-col flex-nowrap font-bold'>
         <div className='flex flex-row items-center justify-center'>
           <Input className='border-none bg-transparent text-center' value={node.data.name} onInput={(evt: ChangeEvent<HTMLInputElement>) => setNodes({ins, node, path: 'data.name', value: evt.target.value})}/>
