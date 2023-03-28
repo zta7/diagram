@@ -98,12 +98,13 @@ function App() {
       <div className="h-screen w-screen select-none font-mono">
         <div className="flex h-full w-full flex-row flex-nowrap">
           <div className='h-full min-w-[160px]'>
-            <div className='h-8 border-b'></div>
-            1
+            <div className='h-8 border-b'>Search Todo</div>
+            <div>Drag Area Todo</div>
           </div>
           <div className="w-0 grow border-x">
             <div className='h-8 border-b'>
-              <button className='btn-ghost'>+</button>
+              Control Button Todo
+              {/* <button className='btn-ghost'>+</button> */}
             </div>
             <ReactFlow
               nodeTypes={nodeTypes}
@@ -119,7 +120,7 @@ function App() {
           </div>
           <ScrollArea className="h-full w-[240px] overflow-hidden">
             <div className='absolute inset-x-0'>
-              <div className='flex h-8 flex-row items-center justify-center border-b'>{selection?.type}</div>
+              <div className='flex h-8 flex-row items-center justify-center border-b'>Inspector</div>
               <div className='px-1'>
                 {getInspector()}
               </div>
