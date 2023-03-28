@@ -1,11 +1,10 @@
 import { EventEdge } from 'components/diagram/edges/EventEdge';
 import { FunctionBlock, FunctionBlockInspector, FunctionBlockNode } from 'components/diagram/nodes/FunctionBlock';
 import { Text } from 'components/diagram/nodes/TextNode';
+import { Input } from 'components/ui/Input';
 import ScrollArea from 'components/ui/ScrollArea';
-import { cloneDeep } from 'lodash';
 import { useCallback, useState } from 'react';
-import ReactFlow, { applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node, OnSelectionChangeParams, ReactFlowProvider, NodeResetChange } from 'reactflow';
-import { Inspector } from './components/diagram/Inspector';
+import ReactFlow, { applyNodeChanges, applyEdgeChanges, NodeChange, EdgeChange, Edge, Node, OnSelectionChangeParams, ReactFlowProvider, Controls } from 'reactflow';
 
 const nodeTypes = {
   Text,
@@ -98,10 +97,14 @@ function App() {
     <ReactFlowProvider>
       <div className="h-screen w-screen select-none font-mono">
         <div className="flex h-full w-full flex-row flex-nowrap">
-          <div className='h-full'>
+          <div className='h-full min-w-[160px]'>
+            <div className='h-8 border-b'></div>
             1
           </div>
-          <div className="w-0 grow" >
+          <div className="w-0 grow border-x">
+            <div className='h-8 border-b'>
+              <button className='btn-ghost'>+</button>
+            </div>
             <ReactFlow
               nodeTypes={nodeTypes}
               edgeTypes={edgeTypes}
@@ -115,8 +118,11 @@ function App() {
             </ReactFlow>
           </div>
           <ScrollArea className="h-full w-[240px] overflow-hidden">
-            <div className='absolute inset-x-0 p-1'>
-              {getInspector()}
+            <div className='absolute inset-x-0'>
+              <div className='flex h-8 flex-row items-center justify-center border-b'>{selection?.type}</div>
+              <div className='px-1'>
+                {getInspector()}
+              </div>
             </div>
           </ScrollArea>
         </div>

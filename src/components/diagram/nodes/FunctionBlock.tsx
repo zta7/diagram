@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback , useMemo, useState } from 'react';
-import { Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, NodeToolbar, XYPosition  } from 'reactflow';
+import { Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, NodeToolbar, XYPosition, useStore  } from 'reactflow';
 import Icon from '@icon-park/react/es/all';
 import { type as EventEdgeType} from '../edges/EventEdge';
 import cx from 'classnames'
@@ -108,10 +108,6 @@ namespace Port {
   }
 }
 
-// const onChange = () => {
-
-// }
-
 export class FunctionBlockNode {
   static type = 'FunctionBlock'
   id: string
@@ -126,15 +122,19 @@ export class FunctionBlockNode {
   }
 }
 
+const zoomSelector = (s: any) => s.transform[2];
+
 export const FunctionBlock =  ({ data, id, selected }:  Prop.FunctionBlockProps ) => {
   const { name, inputEvents, outputEvents, inputs, outputs, resource } = data
   const ins = useReactFlow()
   const node = ins.getNode(id) as Node
   const selectedClassName = cx([selected ? 'border-primary' : 'border-black'])
-  // console.log(data)
+  const zoom = useStore(zoomSelector);
+  const showContent = zoom >= 1.5;
+
   return (
     <>
-      <NodeToolbar offset={0} className="flex flex-row">
+      <NodeToolbar offset={0} className="flex flex-row" isVisible={showContent}>
         <Icon type="Plus"/>
         <Icon type="Delete"/>
       </NodeToolbar>
