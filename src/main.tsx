@@ -7,7 +7,7 @@ import './main.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <IconContext.Provider value={{ size: '90%' }}>
+    <IconContext.Provider value={{ size: '1.25rem' }}>
       <App />
     </IconContext.Provider>
   </React.StrictMode>,

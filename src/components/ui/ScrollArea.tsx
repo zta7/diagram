@@ -10,7 +10,7 @@ export default React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement &
     };
 
     return (
-      <ScrollArea.Root className={className} type="scroll" onScrollCapture={onScrollCapture}>
+      <ScrollArea.Root className={className} type="hover" onScrollCapture={onScrollCapture}>
         <ScrollArea.Viewport className="rounded">
           {children}
         </ScrollArea.Viewport>

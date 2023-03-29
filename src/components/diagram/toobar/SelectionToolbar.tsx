@@ -55,8 +55,8 @@ export function SelectionToolbar() {
       nodeId={selectedNode.map((e) => e.id)}
       isVisible={isVisible}
       offset={0}
-      className="flex flex-row justify-between outline-dotted outline-2 outline-offset-0 outline-primary"
-      style={{ width: (width || 0) * zoom }}
+      className="flex justify-between outline-dotted outline-2 outline-offset-0 outline-primary"
+      style={{ minWidth: (width || 0) * zoom }}
     >
       {
         isMutiple

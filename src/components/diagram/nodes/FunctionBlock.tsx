@@ -10,7 +10,6 @@ import { Select } from 'components/ui/Select';
 import { type as EventEdgeType } from 'components/diagram/edges/EventEdge';
 import { setNodes } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
-import ScrollArea from 'components/ui/ScrollArea';
 
 type ConnectionSource = Pick<Connection, 'source' | 'sourceHandle'>
 // type ConnectionTarget = Pick<Connection, 'target' | 'targetHandle'>
@@ -132,8 +131,8 @@ export function FunctionBlockTemplate({ data, id, selected }: Prop.FunctionBlock
   const selectedClassName = cx([selected ? 'border-primary' : 'border-black']);
 
   return (
-    <div className="nowheel flex flex-col flex-nowrap font-bold">
-      <div className="flex flex-row items-center justify-center">
+    <div className="flex flex-col flex-nowrap font-bold">
+      <div className="flex items-center justify-center">
         <Input
           className="border-none bg-transparent text-center"
           value={node.data.name}
@@ -142,24 +141,22 @@ export function FunctionBlockTemplate({ data, id, selected }: Prop.FunctionBlock
           })}
         />
       </div>
-      <ScrollArea className={`border-2 ${selectedClassName}`}>
-        <div className="flex max-h-40 flex-row flex-nowrap justify-between gap-1">
-          <div className="flex flex-col flex-nowrap">
-            {
+      <div className={`flex flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
+        <div className="flex flex-col flex-nowrap">
+          {
               inputEvents.map((e: Prop.InputEvent) => <Port.InputEvent name={e.name} id={e.id} key={e.id} />)
             }
-          </div>
-          <div className="flex flex-col flex-nowrap">
-            {
+        </div>
+        <div className="flex flex-col flex-nowrap">
+          {
               outputEvents.map((e: Prop.OutputEvent) => <Port.OutputEvent name={e.name} id={e.id} key={e.id} />)
             }
-          </div>
         </div>
-      </ScrollArea>
+      </div>
       <div className="flex flex-col flex-nowrap items-center justify-center text-white">
         <div className={`border-x-2 bg-blue-600 px-1 text-white ${selectedClassName}`}>Block Name</div>
       </div>
-      <div className={`flex flex-row flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
+      <div className={`flex flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
         <div className="flex flex-col flex-nowrap">
           {
             inputs.map((e: Prop.Input) => <Port.Input name={e.name} id={e.id} key={e.id} />)
@@ -188,7 +185,7 @@ export function FunctionBlockInspector({ node } : {node: FunctionBlockNode}) {
   return (
     <div className="flex flex-col flex-nowrap justify-between gap-1">
       <div className="flex flex-col flex-nowrap justify-between gap-1">
-        <div className="flex flex-row flex-nowrap items-center justify-between gap-1">
+        <div className="flex flex-nowrap items-center justify-between gap-1">
           <div>Name</div>
         </div>
         <Input

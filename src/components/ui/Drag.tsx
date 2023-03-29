@@ -1,6 +1,8 @@
 import { useDraggable, DragOverlay } from '@dnd-kit/core';
 import { DropIdEnum } from 'components/ui/Drop';
-import { ReactElement, useCallback, cloneElement } from 'react';
+import {
+  useCallback, cloneElement, ReactNode, ReactElement,
+} from 'react';
 import cx from 'classnames';
 
 export interface DragData {
@@ -13,7 +15,7 @@ interface Prop {
   children: ReactElement
   dropTo: Array<DropIdEnum>
   dropData: Record<string, any>
-  dragOverlay?: ReactElement,
+  dragOverlay?: ReactNode,
   className?: string
 }
 
