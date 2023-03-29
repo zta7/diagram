@@ -1,5 +1,7 @@
 import { EventEdge } from 'components/diagram/edges/EventEdge';
-import { FunctionBlock, FunctionBlockInspector, FunctionBlockNode } from 'components/diagram/nodes/FunctionBlock';
+import {
+  FunctionBlockTemplate, FunctionBlockInspector, FunctionBlockNode, FunctionBlockType, FunctionBlockDragOverlay,
+} from 'components/diagram/nodes/FunctionBlock';
 import { Text } from 'components/diagram/nodes/TextNode';
 import { Input } from 'components/ui/Input';
 import ScrollArea from 'components/ui/ScrollArea';
@@ -15,12 +17,15 @@ import { Drag } from 'components/ui/Drag';
 import { Drop, DropIdEnum } from 'components/ui/Drop';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { getCanDrop } from 'components/diagram/helper';
-import { get, isObject, isPlainObject } from 'lodash';
+import { get } from 'lodash';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
+import { SelectionToolbar } from 'components/diagram/toobar/SelectionToolbar';
+import { InputNode, InputTemplate, InputType } from 'components/diagram/nodes/InputNode';
 
 const nodeTypes = {
   Text,
-  FunctionBlock,
+  [InputType]: InputTemplate,
+  [FunctionBlockType]: FunctionBlockTemplate,
 };
 
 const edgeTypes = {
@@ -28,18 +33,8 @@ const edgeTypes = {
 };
 
 function App() {
-  const dropRef = useRef<HTMLElement | null>(null);
-  const [draggingId, setDraggingId] = useState(null);
-  const onDragStart = useCallback((evt: any) => {
-    console.log(draggingId, evt);
-  }, []);
-  const onDragMove = useCallback((evt: any) => {
-    console.log(evt);
-  }, []);
-
+  const dropRef = useRef<HTMLDivElement | null>(null);
   const initialNodes = [
-    { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-    { id: '2', position: { x: 0, y: 0 }, data: { label: '1' } },
     {
       id: '3', type: 'Text', position: { x: 50, y: 50 }, data: { value: 123 },
     },
@@ -72,9 +67,7 @@ function App() {
       },
     ),
   ];
-  const initialEdges = [
-    { id: 'e1-2', source: '1', target: '2' },
-  ];
+  const initialEdges: Array<Edge> = [];
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -92,15 +85,16 @@ function App() {
         y: (activatorEvent as PointerEvent).clientY + delta.y - dropBounds.top,
       });
       const data = get(active, 'data.current.dropData');
+      // console.log(data);
       if (data instanceof BasicNode) {
         data.position = position;
-        setNodes((nds) => nds = nds.concat(data));
+        setNodes((nds) => nds.concat(data));
       }
     }
-  }, []);
+  }, [reactFlowInstance]);
 
   const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((nds: Node[]) => {
+    (changes: NodeChange[]) => setNodes((nds:[]) => {
       changes.forEach((c) => {
         if (c.type === 'reset' && c.item.id === selection?.id) {
           setSelection(c.item);
@@ -126,7 +120,7 @@ function App() {
 
   const getInspector = useCallback(() => {
     if (selection) {
-      if (selection.type === FunctionBlockNode.type) {
+      if (selection.type === FunctionBlockType) {
         return <FunctionBlockInspector node={selection as FunctionBlockNode} />;
       }
     }
@@ -141,7 +135,7 @@ function App() {
   // );
 
   return (
-    <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragMove={onDragMove}>
+    <DndContext onDragEnd={onDragEnd}>
       <ReactFlowProvider>
         <div className="flex h-screen w-screen select-none flex-row flex-nowrap font-mono">
           <div className="flex h-full w-full grow flex-row flex-nowrap">
@@ -152,9 +146,10 @@ function App() {
               <Drag
                 id="drag-1"
                 dropTo={[DropIdEnum.NETFLOW]}
+                dragOverlay={<FunctionBlockDragOverlay />}
                 dropData={new FunctionBlockNode(
                   {
-                    id: 'test',
+                    id: `${Math.random()}`,
                     type: 'FunctionBlock',
                     position: { x: 150, y: 150 },
                     data: {
@@ -169,12 +164,24 @@ function App() {
               >
                 <span>Drag1</span>
               </Drag>
-              <Drag id="drag-2" dropTo={[DropIdEnum.TEST]} dropData={{}}>
-                <span>Drag2</span>
+              <Drag
+                id="drag-2"
+                dropTo={[DropIdEnum.NETFLOW]}
+                dropData={new InputNode({
+                  id: `${Math.random()}`,
+                  type: 'Input',
+                  position: { x: 150, y: 150 },
+                  data: { value: '123' },
+                })}
+              >
+                <div className="flex flex-row">
+                  <div>1</div>
+                  <div>2</div>
+                </div>
               </Drag>
             </div>
             <div className="flex grow flex-col flex-nowrap">
-              <Controls className="flex h-8 flex-row items-center border-b" />
+              <Controls className="flex h-8 flex-row items-center border-b px-1" />
               <Drop id={DropIdEnum.NETFLOW} className="grow" ref={dropRef}>
                 <ReactFlow
                   nodeTypes={nodeTypes}
@@ -185,7 +192,9 @@ function App() {
                   onEdgesChange={onEdgesChange}
                   onSelectionChange={onSelectionchange}
                   onInit={setReactFlowInstance}
-                />
+                >
+                  <SelectionToolbar />
+                </ReactFlow>
               </Drop>
             </div>
           </div>

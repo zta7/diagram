@@ -1,11 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { IconContext } from 'react-icons';
+import App from './App';
 import 'reactflow/dist/base.css';
-import './main.css'
+import './main.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+    <IconContext.Provider value={{ size: '90%' }}>
       <App />
-  </React.StrictMode>
-)
+    </IconContext.Provider>
+  </React.StrictMode>,
+);

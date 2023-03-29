@@ -1,4 +1,4 @@
-export const Text =  ({ data }: any = {}) => {
+export function Text({ data }: any = {}) {
   // const onChange = useCallback((evt) => {
   //   console.log(evt.target.value);
   // }, []);

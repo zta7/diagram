@@ -1,7 +1,7 @@
 import { useDraggable, DragOverlay } from '@dnd-kit/core';
-import { FunctionBlock, FunctionBlockNode } from 'components/diagram/nodes/FunctionBlock';
 import { DropIdEnum } from 'components/ui/Drop';
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, cloneElement } from 'react';
+import cx from 'classnames';
 
 export interface DragData {
   dropTo: Array<DropIdEnum>
@@ -13,10 +13,12 @@ interface Prop {
   children: ReactElement
   dropTo: Array<DropIdEnum>
   dropData: Record<string, any>
+  dragOverlay?: ReactElement,
+  className?: string
 }
 
 export function Drag({
-  id, dropTo, children, dropData,
+  id, dropTo, children, dropData, dragOverlay, className,
 }: Prop) {
   const {
     attributes, listeners, setNodeRef, isDragging,
@@ -28,31 +30,27 @@ export function Drag({
     },
   });
 
-  const fb = new FunctionBlockNode(
-    {
-      id: '4',
-      position: { x: 150, y: 150 },
-      data: {
-        name: '123',
-        inputEvents: Array.from({ length: 10 }, (e, i) => ({ id: `inputEvent-${i}`, name: `inputEvent-${i}` })),
-        outputEvents: Array.from({ length: 15 }, (e, i) => ({ id: `outputEvent-${i}`, name: `outputEvent-${i}` })),
-        inputs: Array.from({ length: 15 }, (e, i) => ({ id: `input-${i}`, name: `input-${i}` })),
-        outputs: Array.from({ length: 10 }, (e, i) => ({ id: `output-${i}`, name: `output-${i}` })),
-        resource: 'fffff',
-      },
-    },
-  );
+  const Overlay = useCallback(() => {
+    if (!isDragging) return '';
+    if (dragOverlay) {
+      return (
+        <DragOverlay>
+          {dragOverlay}
+        </DragOverlay>
+      );
+    }
+    return (
+      <DragOverlay>
+        {cloneElement(children, children.props)}
+      </DragOverlay>
+    );
+  }, [isDragging, dragOverlay, children]);
 
   return (
-    <div ref={setNodeRef} {...listeners} {...attributes}>
+    <div ref={setNodeRef} {...listeners} {...attributes} className={cx(className)}>
       { children }
       {
-        isDragging && (
-        <DragOverlay>
-          Dragging ...
-          {/* <FunctionBlock {...fb} /> */}
-        </DragOverlay>
-        )
+        Overlay()
       }
     </div>
   );
