@@ -2,7 +2,7 @@ import { Node, NodeProps } from 'reactflow';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
 import { Input } from 'components/ui/Input';
 
-export const InputType = 'input';
+export const InputType = 'Input';
 
 namespace Prop {
   export interface InputData {

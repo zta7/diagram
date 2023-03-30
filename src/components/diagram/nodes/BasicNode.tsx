@@ -1,22 +1,12 @@
-import { XYPosition } from 'reactflow';
+import { Node } from 'reactflow';
 
-// for class validation
-interface Prop {
-  id: string;
-  position: XYPosition;
-  type: string
-}
+export type BasicNodeProp = Partial<Node>
 
 export class BasicNode {
-  id: string;
-
-  position: XYPosition;
-
-  type: string;
-
-  constructor({ id, position, type }:Prop) {
-    this.id = id;
-    this.position = position;
-    this.type = type;
+  constructor({ id, ...rest }: BasicNodeProp) {
+    Object.assign(this, {
+      ...rest,
+      id: id === undefined ? `${Math.random()}` : id,
+    });
   }
 }

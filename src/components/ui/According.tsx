@@ -28,9 +28,7 @@ export const AccordionTrigger = React.forwardRef(({ children, className, ...prop
       ref={forwardedRef}
     >
       {children}
-      <Button>
-        <MdOutlineChevronLeft aria-hidden className="transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180" />
-      </Button>
+      <MdOutlineChevronLeft aria-hidden className="transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180" />
     </Accordion.Trigger>
   </Accordion.Header>
 ));

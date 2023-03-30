@@ -1,9 +1,9 @@
 import { EdgeProps, getBezierPath } from 'reactflow';
-import cx from 'classnames'
+import cx from 'classnames';
 
-export const type = 'EventEdge'
+export const type = 'EventEdge';
 
-export const EventEdge = ({
+export function EventEdge({
   id,
   sourceX,
   sourceY,
@@ -12,7 +12,7 @@ export const EventEdge = ({
   sourcePosition,
   targetPosition,
   selected,
-}: EdgeProps) => {
+}: EdgeProps) {
   const [edgePath] = getBezierPath({
     sourceX,
     sourceY,
@@ -24,8 +24,8 @@ export const EventEdge = ({
 
   const pathClassName = cx([
     'react-flow__edge-path stroke-[6px] hover:!stroke-green-500',
-    selected ? '!stroke-green-500' : '!stroke-green-600'
-  ])
+    selected ? '!stroke-green-500' : '!stroke-green-600',
+  ]);
 
   return (
     <g>

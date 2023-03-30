@@ -116,20 +116,22 @@ namespace Port {
 export class FunctionBlockNode extends BasicNode {
   data: Prop.FunctionBlockData;
 
-  constructor({ id, data, position }: Prop.FunctionBlockNode) {
-    super({ id, position, type: FunctionBlockType });
+  constructor({ data, ...rest }: Prop.FunctionBlockNode) {
+    super({ ...rest, type: FunctionBlockType });
     this.data = data;
   }
 }
 
-export function FunctionBlockTemplate({ data, id, selected }: Prop.FunctionBlockProps) {
+export function FunctionBlockTemplate({
+  data, id, selected,
+}: Prop.FunctionBlockProps) {
   const {
     inputEvents, outputEvents, inputs, outputs, resource,
   } = data;
   const ins = useReactFlow();
   const node = ins.getNode(id) as Node;
   const selectedClassName = cx([selected ? 'border-primary' : 'border-black']);
-
+  // console.log(node.extent);
   return (
     <div className="flex flex-col flex-nowrap font-bold">
       <div className="flex items-center justify-center">

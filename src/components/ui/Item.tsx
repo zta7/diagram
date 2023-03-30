@@ -7,7 +7,7 @@ export const Item = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
     return (
       <div
         ref={ref}
-        className={cx(['h-8 w-full', className])}
+        className={cx(['h-8 w-full hover:bg-base-200', className])}
         {...rest}
       >
         { children }
