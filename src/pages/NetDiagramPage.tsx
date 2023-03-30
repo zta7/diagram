@@ -78,7 +78,6 @@ export function NetDiagramPage() {
       position: { x: 0, y: 0 },
       parentNode: 'A',
       extent: 'parent',
-      selectable: false,
     },
     {
       id: 'C',
@@ -86,7 +85,6 @@ export function NetDiagramPage() {
       position: { x: 200, y: 20 },
       parentNode: 'A',
       extent: 'parent',
-      selectable: false,
     },
     // new FunctionBlockNode(
     //   {

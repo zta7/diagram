@@ -2,7 +2,7 @@ import {
   ChangeEvent, useCallback, useMemo,
 } from 'react';
 import {
-  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge,
+  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, useStoreApi,
 } from 'reactflow';
 import cx from 'classnames';
 import { Input } from 'components/ui/Input';
@@ -130,8 +130,9 @@ export function FunctionBlockTemplate({
   } = data;
   const ins = useReactFlow();
   const node = ins.getNode(id) as Node;
+
   const selectedClassName = cx([selected ? 'border-primary' : 'border-black']);
-  // console.log(node.extent);
+
   return (
     <div className="flex flex-col flex-nowrap font-bold">
       <div className="flex items-center justify-center">
