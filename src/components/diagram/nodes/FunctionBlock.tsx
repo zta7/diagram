@@ -2,7 +2,7 @@ import {
   ChangeEvent, useCallback, useMemo,
 } from 'react';
 import {
-  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, useStoreApi,
+  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge,
 } from 'reactflow';
 import cx from 'classnames';
 import { Input } from 'components/ui/Input';
@@ -183,7 +183,7 @@ export function FunctionBlockTemplate({
   );
 }
 
-export function FunctionBlockInspector({ node } : {node: FunctionBlockNode}) {
+export function FunctionBlockInspector({ node } : {node: Node}) {
   const ins = useReactFlow();
   return (
     <div className="flex flex-col flex-nowrap justify-between gap-1">

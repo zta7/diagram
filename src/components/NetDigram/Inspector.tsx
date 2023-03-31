@@ -4,7 +4,7 @@ import {
 import { useState } from 'react';
 import ScrollArea from 'components/ui/ScrollArea';
 
-export function SelectionInspector({ className }: {className: string}) {
+export function Inspector({ className }: {className: string}) {
   const [selection, setSelection] = useState<Node | Edge | null>(null);
 
   useOnSelectionChange({

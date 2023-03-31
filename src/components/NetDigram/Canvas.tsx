@@ -1,12 +1,10 @@
-import { Controls } from 'components/diagram/controls';
-import { SelectionToolbar } from 'components/diagram/toobar/SelectionToolbar';
 import { Drop, DropIdEnum } from 'components/ui/Drop';
 import ReactFlow, { useStoreApi } from 'reactflow';
 import { useRef } from 'react';
 import { useStore } from 'components/NetDigram/store';
 import { shallow } from 'zustand/shallow';
 
-export function Canvas() {
+export function Canvas({ className }: {className: string}) {
   const dropRef = useRef<HTMLDivElement | null>(null);
   const storeApi = useStoreApi();
   const {
@@ -23,21 +21,17 @@ export function Canvas() {
   }), shallow);
 
   return (
-    <>
-      <Controls className="flex h-8 items-center border-b px-1" />
-      <SelectionToolbar />
-      <Drop id={DropIdEnum.NETFLOW} className="grow" ref={dropRef}>
-        <ReactFlow
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onInit={(instance) => onInit(instance, dropRef, storeApi)}
-          onConnect={onConnect}
-        />
-      </Drop>
-    </>
+    <Drop id={DropIdEnum.NETFLOW} className={className} ref={dropRef}>
+      <ReactFlow
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onInit={(instance) => onInit(instance, dropRef, storeApi)}
+        onConnect={onConnect}
+      />
+    </Drop>
   );
 }

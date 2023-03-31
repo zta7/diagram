@@ -18,10 +18,12 @@ import {
 } from 'reactflow';
 import { DragEndEvent } from '@dnd-kit/core';
 import { InputTemplate, InputType } from 'components/diagram/nodes/InputNode';
-import { FunctionBlockTemplate, FunctionBlockType } from 'components/diagram/nodes/FunctionBlock';
+import { FunctionBlockInspector, FunctionBlockTemplate, FunctionBlockType } from 'components/diagram/nodes/FunctionBlock';
 import { GroupTemplate, GroupType } from 'components/diagram/nodes/GroupNode';
 import { EventEdgeTemplate, EventEdgeType } from 'components/diagram/edges/EventEdge';
-import { RefObject } from 'react';
+import {
+  ComponentType, RefObject,
+} from 'react';
 import { getCanDrop, getDragData } from 'components/diagram/helper';
 import type { StoreApi } from 'zustand';
 
@@ -35,13 +37,15 @@ const edgeTypes = {
   [EventEdgeType]: EventEdgeTemplate,
 };
 
-// eslint-disable-next-line no-unused-vars
-type onInit = (reactFlowInstance: ReactFlowInstance, dropRef: RefObject<HTMLElement | null>, store: any) => void
+const insepctorTypes = {
+  [FunctionBlockType]: FunctionBlockInspector,
+};
+type onInit = (reactFlowInstance: ReactFlowInstance, dropRef: RefObject<HTMLElement | null>, store: StoreApi<ReactFlowState>) => void
 
 type RFState = {
   instance: ReactFlowInstance | null
-  // storeApi: ReactFlowState | null,
   storeApi: StoreApi<ReactFlowState> | null
+  insepctorTypes: Record<string, ComponentType<{node: Node}>>
   dropRef: RefObject<HTMLElement | null>
   nodes: Node[];
   edges: Edge[];
@@ -52,14 +56,13 @@ type RFState = {
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
   onInit: onInit;
-  // eslint-disable-next-line no-unused-vars
   onStencilDragend: (evt: DragEndEvent) => void
 }
 
-// this is our useStore hook that we can use in our components to get parts of the store and call actions
 export const useStore = create<RFState>((set, get) => ({
   instance: null,
   storeApi: null,
+  insepctorTypes,
   nodes: [],
   edges: [],
   nodeTypes,
