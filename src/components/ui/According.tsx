@@ -1,11 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames';
-import * as Accordion from '@radix-ui/react-accordion';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { MdOutlineChevronLeft } from 'react-icons/md';
-import { Button } from './Button';
 
-export const AccordionItem = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
-  <Accordion.Item
+export const AccordionItem = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+>(({ children, className, ...props }, forwardedRef) => (
+  <AccordionPrimitive.Item
     className={cx(
       '',
       className,
@@ -14,12 +16,15 @@ export const AccordionItem = React.forwardRef(({ children, className, ...props }
     ref={forwardedRef}
   >
     {children}
-  </Accordion.Item>
+  </AccordionPrimitive.Item>
 ));
 
-export const AccordionTrigger = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
-  <Accordion.Header className="flex" asChild>
-    <Accordion.Trigger
+export const AccordionTrigger = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ children, className, ...props }, forwardedRef) => (
+  <AccordionPrimitive.Header className="flex" asChild>
+    <AccordionPrimitive.Trigger
       className={cx(
         'group flex flex-nowrap items-center justify-between px-2 py-1 w-full hover:bg-base-200 cursor-pointer h-8',
         className,
@@ -29,12 +34,15 @@ export const AccordionTrigger = React.forwardRef(({ children, className, ...prop
     >
       {children}
       <MdOutlineChevronLeft aria-hidden className="transition-transform duration-300 ease-[cubic-bezier(0.87,_0,_0.13,_1)] group-data-[state=open]:rotate-180" />
-    </Accordion.Trigger>
-  </Accordion.Header>
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
 ));
 
-export const AccordionContent = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
-  <Accordion.Content
+export const AccordionContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+>(({ children, className, ...props }, forwardedRef) => (
+  <AccordionPrimitive.Content
     className={cx(
       'data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden px-2 py-1',
       className,
@@ -43,21 +51,27 @@ export const AccordionContent = React.forwardRef(({ children, className, ...prop
     ref={forwardedRef}
   >
     {children}
-  </Accordion.Content>
+  </AccordionPrimitive.Content>
 ));
 
-export const AccordionRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+export const AccordionRoot = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
+>(
   (props, ref) => {
-    const { className, children } = props;
+    const { className, children, type } = props;
     return (
-      <Accordion.Root
+      <AccordionPrimitive.Root
         ref={ref}
-        className="w-full"
-        type="single"
+        className={cx(
+          'w-full',
+          className,
+        )}
+        type={type}
         collapsible
       >
         {children}
-      </Accordion.Root>
+      </AccordionPrimitive.Root>
     );
   },
 );

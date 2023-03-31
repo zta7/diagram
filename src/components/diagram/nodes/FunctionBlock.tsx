@@ -7,7 +7,7 @@ import {
 import cx from 'classnames';
 import { Input } from 'components/ui/Input';
 import { Select } from 'components/ui/Select';
-import { type as EventEdgeType } from 'components/diagram/edges/EventEdge';
+import { EventEdgeType } from 'components/diagram/edges/EventEdge';
 import { setNodes } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
 
@@ -28,7 +28,7 @@ namespace Prop {
 
   export type FunctionBlockProps = NodeProps<FunctionBlockData>
 
-  export type FunctionBlockNode = Node<FunctionBlockData>
+  export type FunctionBlockNode = BasicNode & { data: FunctionBlockData}
 
   export interface InputEvent {
     id: string

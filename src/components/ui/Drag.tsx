@@ -5,12 +5,12 @@ import {
 } from 'react';
 import cx from 'classnames';
 
-export interface DragData {
-  dropTo: Array<DropIdEnum>
-  dropData?: Record<string, any>
-}
+// export interface DragData {
+//   dropTo: Array<DropIdEnum>
+//   dropData?: Record<string, any>
+// }
 
-interface Prop {
+export type DragProp = {
   id: string
   children: ReactElement
   dropTo: Array<DropIdEnum>
@@ -21,7 +21,7 @@ interface Prop {
 
 export function Drag({
   id, dropTo, children, dropData, dragOverlay, className,
-}: Prop) {
+}: DragProp) {
   const {
     attributes, listeners, setNodeRef, isDragging,
   } = useDraggable({

@@ -1,9 +1,9 @@
 import { EdgeProps, getBezierPath } from 'reactflow';
 import cx from 'classnames';
 
-export const type = 'EventEdge';
+export const EventEdgeType = 'EventEdge';
 
-export function EventEdge({
+export function EventEdgeTemplate({
   id,
   sourceX,
   sourceY,

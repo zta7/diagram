@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { IconContext } from 'react-icons';
-import App from './App';
+import App from 'App';
 import 'reactflow/dist/base.css';
 import './main.css';
 

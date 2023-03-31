@@ -28,7 +28,6 @@
     "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-scroll-area": "^1.0.3",
     "@radix-ui/react-separator": "^1.0.2",
-    "@tisoap/react-flow-smart-edge": "^3.0.0",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.5",
     "lodash": "^4.17.21",
@@ -37,8 +36,7 @@
     "react-icons": "^4.8.0",
     "react-merge-refs": "^2.0.1",
     "react-use": "^17.4.0",
-    "reactflow": "^11.6.1",
-    "zustand": "^4.3.6"
+    "reactflow": "^11.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",

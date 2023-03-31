@@ -13,10 +13,11 @@ export const setNodes = ({
 }: setNodesProp) => {
   ins.setNodes((nds) => nds.map((n) => {
     if (n.id === node.id) {
-      n = set(cloneDeep(n), path, value);
+      return set(cloneDeep(n), path, value);
     }
     return n;
   }));
 };
 
 export const getCanDrop = ({ active, overId }: any) => get(active, 'data.current.dropTo', [] as Array<string>).includes(overId);
+export const getDragData = (active: any) => get(active, 'data.current.dropData');

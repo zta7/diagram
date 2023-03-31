@@ -1,6 +1,6 @@
 import { BasicNode, BasicNodeProp } from 'components/diagram/nodes/BasicNode';
 import {
-  useReactFlow, getRectOfNodes, ReactFlowState, useStore, Rect, useStoreApi,
+  useReactFlow, getRectOfNodes, ReactFlowState, useStore, Rect, useStoreApi, Node, NodeProps,
 } from 'reactflow';
 import { useMemo, useEffect, useState } from 'react';
 import cx from 'classnames';
@@ -17,7 +17,7 @@ export class GroupNode extends BasicNode {
 // const extentSelector = (state: ReactFlowState) => Array.from(state.nodeInternals.values())
 //   .filter((node) => node.extent === 'parent');
 
-export function GroupTemplate({ id, selected }: any) {
+export function GroupTemplate({ id, dragging }: NodeProps) {
   const store = useStoreApi();
   const { triggerNodeChanges, nodeInternals } = store.getState();
   const extentNodes = useStore((state: ReactFlowState) => Array.from(state.nodeInternals.values())
@@ -25,8 +25,9 @@ export function GroupTemplate({ id, selected }: any) {
   const [rect, setRect] = useState<Rect>();
 
   useEffect(() => {
-    const r = getRectOfNodes(extentNodes);
-    if (!isEqual(rect, r)) setRect(r);
+    console.log(extentNodes);
+    // const r = getRectOfNodes(extentNodes);
+    // if (!isEqual(rect, r)) setRect(r);
   }, [extentNodes]);
 
   useEffect(() => {

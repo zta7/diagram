@@ -1,9 +1,9 @@
-import { NetDiagramPage } from 'pages/NetDiagramPage';
+import { NetDiagram } from 'components/NetDigram';
 
 function App() {
   return (
     <div className="text-xs">
-      <NetDiagramPage />
+      <NetDiagram />
     </div>
   );
 }
