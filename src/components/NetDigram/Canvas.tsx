@@ -3,15 +3,15 @@ import ReactFlow, { useStoreApi } from 'reactflow';
 import { useRef } from 'react';
 import { useStore } from 'components/NetDigram/store';
 import { shallow } from 'zustand/shallow';
+import { edgeTypes, nodeTypes } from 'components/NetDigram/types';
 
 export function Canvas({ className }: {className: string}) {
   const dropRef = useRef<HTMLDivElement | null>(null);
   const storeApi = useStoreApi();
+
   const {
-    nodes, edges, onNodesChange, onEdgesChange, nodeTypes, edgeTypes, onInit, onConnect,
+    nodes, edges, onNodesChange, onEdgesChange, onInit, onConnect,
   } = useStore((state) => ({
-    nodeTypes: state.nodeTypes,
-    edgeTypes: state.edgeTypes,
     nodes: state.nodes,
     edges: state.edges,
     onNodesChange: state.onNodesChange,

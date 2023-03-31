@@ -27,30 +27,30 @@ import {
 import { getCanDrop, getDragData } from 'components/diagram/helper';
 import type { StoreApi } from 'zustand';
 
-const nodeTypes = {
-  [InputType]: InputTemplate,
-  [FunctionBlockType]: FunctionBlockTemplate,
-  [GroupType]: GroupTemplate,
-};
+// export const nodeTypes = {
+//   [InputType]: InputTemplate,
+//   [FunctionBlockType]: FunctionBlockTemplate,
+//   [GroupType]: GroupTemplate,
+// } as NodeTypes;
 
-const edgeTypes = {
-  [EventEdgeType]: EventEdgeTemplate,
-};
+// export const edgeTypes = {
+//   [EventEdgeType]: EventEdgeTemplate,
+// } as EdgeTypes;
 
-const insepctorTypes = {
-  [FunctionBlockType]: FunctionBlockInspector,
-};
+// export const insepctorTypes = {
+//   [FunctionBlockType]: FunctionBlockInspector,
+// } as Record<string, ComponentType<{node: Node}>>;
+
 type onInit = (reactFlowInstance: ReactFlowInstance, dropRef: RefObject<HTMLElement | null>, store: StoreApi<ReactFlowState>) => void
 
 type RFState = {
   instance: ReactFlowInstance | null
   storeApi: StoreApi<ReactFlowState> | null
-  insepctorTypes: Record<string, ComponentType<{node: Node}>>
   dropRef: RefObject<HTMLElement | null>
   nodes: Node[];
   edges: Edge[];
-  nodeTypes: NodeTypes;
-  edgeTypes: EdgeTypes,
+  // nodeTypes: NodeTypes;
+  // edgeTypes: EdgeTypes,
   stencilSearch: string;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
@@ -62,11 +62,8 @@ type RFState = {
 export const useStore = create<RFState>((set, get) => ({
   instance: null,
   storeApi: null,
-  insepctorTypes,
   nodes: [],
   edges: [],
-  nodeTypes,
-  edgeTypes,
   stencilSearch: '',
   dropRef: { current: null },
   onStencilDragend: (evt) => {

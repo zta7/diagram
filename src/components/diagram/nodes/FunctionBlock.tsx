@@ -2,13 +2,13 @@ import {
   ChangeEvent, useCallback, useMemo,
 } from 'react';
 import {
-  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge,
+  Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, useStoreApi,
 } from 'reactflow';
 import cx from 'classnames';
 import { Input } from 'components/ui/Input';
 import { Select } from 'components/ui/Select';
 import { EventEdgeType } from 'components/diagram/edges/EventEdge';
-import { setNodes } from 'components/diagram/helper';
+import { onNodeReset } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
 
 type ConnectionSource = Pick<Connection, 'source' | 'sourceHandle'>
@@ -128,8 +128,8 @@ export function FunctionBlockTemplate({
   const {
     inputEvents, outputEvents, inputs, outputs, resource,
   } = data;
-  const ins = useReactFlow();
-  const node = ins.getNode(id) as Node;
+  const { triggerNodeChanges, nodeInternals } = useStoreApi().getState();
+  const node = nodeInternals.get(id);
 
   const selectedClassName = cx([selected ? 'border-primary' : 'border-black']);
 
@@ -138,10 +138,8 @@ export function FunctionBlockTemplate({
       <div className="flex items-center justify-center">
         <Input
           className="border-none bg-transparent text-center"
-          value={node.data.name}
-          onInput={(evt: ChangeEvent<HTMLInputElement>) => setNodes({
-            ins, node, path: 'data.name', value: evt.target.value,
-          })}
+          value={data.name}
+          onInput={(evt: ChangeEvent<HTMLInputElement>) => node && onNodeReset<Prop.FunctionBlockData>({ ...node, data: { ...node.data, name: evt.target.value } }, triggerNodeChanges)}
         />
       </div>
       <div className={`flex flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
@@ -184,7 +182,7 @@ export function FunctionBlockTemplate({
 }
 
 export function FunctionBlockInspector({ node } : {node: Node}) {
-  const ins = useReactFlow();
+  const { triggerNodeChanges } = useStoreApi().getState();
   return (
     <div className="flex flex-col flex-nowrap justify-between gap-1">
       <div className="flex flex-col flex-nowrap justify-between gap-1">
@@ -193,10 +191,9 @@ export function FunctionBlockInspector({ node } : {node: Node}) {
         </div>
         <Input
           value={node.data.name}
-          onInput={(evt: ChangeEvent<HTMLInputElement>) => setNodes({
-            ins, node, path: 'data.name', value: evt.target.value,
-          })}
+          onInput={(evt: ChangeEvent<HTMLInputElement>) => onNodeReset<Prop.FunctionBlockData>({ ...node, data: { ...node.data, name: evt.target.value } }, triggerNodeChanges)}
         />
+        <Select />
       </div>
     </div>
   );

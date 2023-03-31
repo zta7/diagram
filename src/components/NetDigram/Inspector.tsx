@@ -6,7 +6,7 @@ import ScrollArea from 'components/ui/ScrollArea';
 
 export function Inspector({ className }: {className: string}) {
   const [selection, setSelection] = useState<Node | Edge | null>(null);
-
+  console.log(selection);
   useOnSelectionChange({
     onChange: (({ nodes, edges }: OnSelectionChangeParams) => {
       const arr = [...nodes, ...edges];

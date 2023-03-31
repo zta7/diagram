@@ -1,23 +1,12 @@
-import { cloneDeep, get, set } from 'lodash';
-import { ReactFlowInstance, Node } from 'reactflow';
-
-interface setNodesProp {
-  ins: ReactFlowInstance,
-  node: Node,
-  path: string,
-  value: any
-}
-
-export const setNodes = ({
-  ins, node, path, value,
-}: setNodesProp) => {
-  ins.setNodes((nds) => nds.map((n) => {
-    if (n.id === node.id) {
-      return set(cloneDeep(n), path, value);
-    }
-    return n;
-  }));
-};
+import { get } from 'lodash';
+import { Node, NodeChange } from 'reactflow';
 
 export const getCanDrop = ({ active, overId }: any) => get(active, 'data.current.dropTo', [] as Array<string>).includes(overId);
 export const getDragData = (active: any) => get(active, 'data.current.dropData');
+
+export const onNodeReset = <T, U extends Node<T> = Node<T>>(newNode: U, triggerNodeChanges: (changes: NodeChange[]) => void) => {
+  triggerNodeChanges([{
+    type: 'reset',
+    item: newNode,
+  }]);
+};
