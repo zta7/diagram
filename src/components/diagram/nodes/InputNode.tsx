@@ -23,7 +23,7 @@ export class InputNode extends BasicNode {
 
 export function InputTemplate({ data }: Prop.InputProps) {
   return (
-    <div>
+    <div className=" text-red-600 focus-within:text-red-800">
       <Input value={data.value} />
     </div>
   );

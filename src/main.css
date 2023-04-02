@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.react-flow__node.selected,.react-flow__node:focus{
+  @apply outline-none border border-primary
+}
+
 /* .validationflow .react-flow__node {
   width: 150px;
   border-radius: 5px;

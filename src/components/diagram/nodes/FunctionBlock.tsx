@@ -4,12 +4,14 @@ import {
 import {
   Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, useStoreApi,
 } from 'reactflow';
-import cx from 'classnames';
 import { Input } from 'components/ui/Input';
 import { Select } from 'components/ui/Select';
 import { EventEdgeType } from 'components/diagram/edges/EventEdge';
 import { onNodeReset } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
+import {
+  AccordionRoot, AccordionContent, AccordionItem, AccordionTrigger,
+} from 'components/ui/According';
 
 type ConnectionSource = Pick<Connection, 'source' | 'sourceHandle'>
 // type ConnectionTarget = Pick<Connection, 'target' | 'targetHandle'>
@@ -123,15 +125,13 @@ export class FunctionBlockNode extends BasicNode {
 }
 
 export function FunctionBlockTemplate({
-  data, id, selected,
+  data, id,
 }: Prop.FunctionBlockProps) {
   const {
     inputEvents, outputEvents, inputs, outputs, resource,
   } = data;
   const { triggerNodeChanges, nodeInternals } = useStoreApi().getState();
   const node = nodeInternals.get(id);
-
-  const selectedClassName = cx([selected ? 'border-primary' : 'border-black']);
 
   return (
     <div className="flex flex-col flex-nowrap font-bold">
@@ -142,7 +142,7 @@ export function FunctionBlockTemplate({
           onInput={(evt: ChangeEvent<HTMLInputElement>) => node && onNodeReset<Prop.FunctionBlockData>({ ...node, data: { ...node.data, name: evt.target.value } }, triggerNodeChanges)}
         />
       </div>
-      <div className={`flex flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
+      <div className="flex flex-nowrap justify-between gap-1 border-2 border-black">
         <div className="flex flex-col flex-nowrap">
           {
               inputEvents.map((e: Prop.InputEvent) => <Port.InputEvent name={e.name} id={e.id} key={e.id} />)
@@ -155,9 +155,9 @@ export function FunctionBlockTemplate({
         </div>
       </div>
       <div className="flex flex-col flex-nowrap items-center justify-center text-white">
-        <div className={`border-x-2 bg-blue-600 px-1 text-white ${selectedClassName}`}>Block Name</div>
+        <div className="border-x-2 border-black bg-blue-600 px-1 text-white">Block Name</div>
       </div>
-      <div className={`flex flex-nowrap justify-between gap-1 border-2 ${selectedClassName}`}>
+      <div className="flex flex-nowrap justify-between gap-1 border-2 border-black">
         <div className="flex flex-col flex-nowrap">
           {
             inputs.map((e: Prop.Input) => <Port.Input name={e.name} id={e.id} key={e.id} />)
@@ -170,9 +170,9 @@ export function FunctionBlockTemplate({
         </div>
       </div>
       {
-        resource && (
+        resource !== undefined && (
           <>
-            <div className={`h-4 w-0 self-center border ${selectedClassName}`} />
+            <div className="h-4 w-0 self-center border border-black" />
             <Select />
           </>
         )
@@ -181,19 +181,33 @@ export function FunctionBlockTemplate({
   );
 }
 
-export function FunctionBlockInspector({ node } : {node: Node}) {
+export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: (node: Node) => void}) {
   const { triggerNodeChanges } = useStoreApi().getState();
+  console.log(node);
+  const onInput = (evt: ChangeEvent<HTMLInputElement>) => {
+    const n = { ...node, data: { ...node.data, name: evt.target.value } };
+    setNode(n);
+    onNodeReset<Prop.FunctionBlockData>(n, triggerNodeChanges);
+  };
   return (
     <div className="flex flex-col flex-nowrap justify-between gap-1">
       <div className="flex flex-col flex-nowrap justify-between gap-1">
-        <div className="flex flex-nowrap items-center justify-between gap-1">
-          <div>Name</div>
-        </div>
-        <Input
-          value={node.data.name}
-          onInput={(evt: ChangeEvent<HTMLInputElement>) => onNodeReset<Prop.FunctionBlockData>({ ...node, data: { ...node.data, name: evt.target.value } }, triggerNodeChanges)}
-        />
-        <Select />
+        <AccordionRoot type="single">
+          <AccordionItem value="common">
+            <AccordionTrigger>
+              123
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-nowrap items-center justify-between gap-1">
+                <div>Name</div>
+              </div>
+              <Input
+                value={node.data.name}
+                onInput={onInput}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </AccordionRoot>
       </div>
     </div>
   );
@@ -206,5 +220,3 @@ export function FunctionBlockDragOverlay() {
     </div>
   );
 }
-
-// Inspector Template DragOverlay Node Type

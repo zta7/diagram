@@ -1,28 +1,29 @@
+import { inspectorTypes } from 'components/NetDigram/store';
 import {
-  useOnSelectionChange, Node, Edge, OnSelectionChangeParams,
+  useMemo,
+  useState,
+} from 'react';
+import {
+  Node,
+  OnSelectionChangeParams, useOnSelectionChange,
 } from 'reactflow';
-import { useState } from 'react';
-import ScrollArea from 'components/ui/ScrollArea';
 
-export function Inspector({ className }: {className: string}) {
-  const [selection, setSelection] = useState<Node | Edge | null>(null);
-  console.log(selection);
+export function Inspector() {
+  const [select, setSelect] = useState<Node | null>(null);
   useOnSelectionChange({
-    onChange: (({ nodes, edges }: OnSelectionChangeParams) => {
-      const arr = [...nodes, ...edges];
-      if (arr.length === 1) setSelection(arr[0]);
-      else setSelection(null);
-    }),
+    onChange({ nodes }: OnSelectionChangeParams) {
+      if (nodes.length === 1) setSelect(nodes[0]);
+      else setSelect(null);
+    },
   });
 
+  const NodeComponent = useMemo(() => {
+    if (select && select.type && inspectorTypes[select.type]) return inspectorTypes[select.type];
+    return undefined;
+  }, [select]);
   return (
-    <ScrollArea className={className}>
-      <div className="absolute inset-x-0">
-        <div className="flex h-8 items-center justify-center border-b">Ins</div>
-        <div className="px-1">
-          ~~~
-        </div>
-      </div>
-    </ScrollArea>
+    <div>
+      { NodeComponent && <NodeComponent node={select} setNode={(node: Node) => setSelect(node)} /> }
+    </div>
   );
 }

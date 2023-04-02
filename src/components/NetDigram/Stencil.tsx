@@ -8,9 +8,8 @@ import { DropIdEnum } from 'components/ui/Drop';
 import { Input } from 'components/ui/Input';
 import { Item } from 'components/ui/Item';
 import { MdGifBox, MdInput } from 'react-icons/md';
-import { useStore } from 'components/NetDigram/store';
 import {
-  ChangeEvent, ReactNode,
+  ChangeEvent, ReactNode, useState,
 } from 'react';
 
 type StencilProp = Array<{
@@ -44,6 +43,7 @@ const stencil: StencilProp = [
                 outputEvents: Array.from({ length: 15 }, (e, i) => ({ id: `outputEvent-${i}`, name: `outputEvent-${i}` })),
                 inputs: Array.from({ length: 15 }, (e, i) => ({ id: `input-${i}`, name: `input-${i}` })),
                 outputs: Array.from({ length: 10 }, (e, i) => ({ id: `output-${i}`, name: `output-${i}` })),
+                resource: '',
               },
             },
           ),
@@ -69,7 +69,7 @@ const stencil: StencilProp = [
 ];
 
 export function Stencil() {
-  const { search } = useStore((state) => ({ search: state.stencilSearch }));
+  const [search, setSearch] = useState('');
   return (
     <>
       <div className="h-8 border-b">
@@ -77,7 +77,7 @@ export function Stencil() {
           className="h-full w-full border-none"
           placeholder="Search"
           value={search}
-          onInput={(evt: ChangeEvent<HTMLInputElement>) => useStore.setState({ stencilSearch: evt.target.value })}
+          onInput={(evt: ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value)}
         />
       </div>
       <AccordionRoot type="single">
