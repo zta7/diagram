@@ -1,7 +1,9 @@
 import ReactFlow, {
   applyEdgeChanges, applyNodeChanges, Edge, NodeChange, useReactFlow, useStoreApi, Node, EdgeChange, addEdge, Connection,
 } from 'reactflow';
-import { useCallback, useRef, useState } from 'react';
+import {
+  useCallback, useRef, useState, useEffect,
+} from 'react';
 import { edgeTypes, nodeTypes } from 'components/NetDigram/store';
 import { DragEndEvent, useDndMonitor } from '@dnd-kit/core';
 import { getCanDrop, getDragData } from 'components/diagram/helper';

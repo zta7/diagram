@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.react-flow__node.selected,.react-flow__node:focus{
-  @apply outline-none border border-primary
+.react-flow__node.selected, .react-flow__node:focus, .react-flow__node:focus-within{
+  @apply outline outline-2 outline-primary outline-offset-2
+}
+
+.react-flow__nodesselection-rect {
+  @apply border-2 border-primary border-solid
 }
 
 /* .validationflow .react-flow__node {

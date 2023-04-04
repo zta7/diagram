@@ -1,4 +1,7 @@
-import { EdgeProps, getBezierPath } from 'reactflow';
+import {
+  applyEdgeChanges,
+  Edge, EdgeProps, getBezierPath, useStoreApi,
+} from 'reactflow';
 import cx from 'classnames';
 
 export const EventEdgeType = 'EventEdge';
@@ -22,23 +25,34 @@ export function EventEdgeTemplate({
     targetPosition,
   });
 
-  const pathClassName = cx([
-    'react-flow__edge-path stroke-[6px] hover:!stroke-green-500',
+  const pathCx = cx([
+    'react-flow__edge-path stroke-[6px] group-hover:!stroke-green-500',
     selected ? '!stroke-green-500' : '!stroke-green-600',
   ]);
 
+  // const { setEdges } = useStoreApi().getState();
+
+  // const onDelete = () => {
+  //   // (eds: Array<Edge>) => applyEdgeChanges([], eds)
+  //   // setEdges([]);
+  // // setEdges((eds: Array<Edge>) => eds.map((e: Edge) => {
+  //   //   if (e.id === id) return { e.id, type: 'remove' };
+  //   //   return e;
+  //   // }));
+  // };
+
   return (
-    <g>
+    <g className="group">
       <path
         id={id}
-        className={pathClassName}
+        className={pathCx}
         d={edgePath}
       />
-      {/* <text>
-        <textPath href={`#${id}`} style={{ fontSize: 12 }} startOffset="10%" textAnchor="middle">
-          x
+      <text>
+        <textPath className="hidden group-hover:block" href={`#${id}`} style={{ fontSize: 10, stroke: 'red' }} startOffset="50%" textAnchor="middle">
+          X
         </textPath>
-      </text> */}
+      </text>
     </g>
   );
 }

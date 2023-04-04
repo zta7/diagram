@@ -57,7 +57,8 @@
     "tailwindcss/no-custom-classname": "off",
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error"]
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "jsx-a11y/label-has-associated-control": "off"
     // "@typescript-eslint/explicit-module-boundary-types": "off",
     // "@typescript-eslint/no-non-null-assertion": "off",
     // "tailwindcss/classnames-order": "warn",

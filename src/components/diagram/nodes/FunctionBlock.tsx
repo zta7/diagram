@@ -134,7 +134,7 @@ export function FunctionBlockTemplate({
   const node = nodeInternals.get(id);
 
   return (
-    <div className="flex flex-col flex-nowrap font-bold">
+    <div className="flex flex-col flex-nowrap">
       <div className="flex items-center justify-center">
         <Input
           className="border-none bg-transparent text-center"
@@ -183,11 +183,11 @@ export function FunctionBlockTemplate({
 
 export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: (node: Node) => void}) {
   const { triggerNodeChanges } = useStoreApi().getState();
-  console.log(node);
   const onInput = (evt: ChangeEvent<HTMLInputElement>) => {
     const n = { ...node, data: { ...node.data, name: evt.target.value } };
     setNode(n);
-    onNodeReset<Prop.FunctionBlockData>(n, triggerNodeChanges);
+    triggerNodeChanges([{ type: 'add', item: n }]);
+    // onNodeReset<Prop.FunctionBlockData>(n, triggerNodeChanges);
   };
   return (
     <div className="flex flex-col flex-nowrap justify-between gap-1">
@@ -195,16 +195,23 @@ export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: 
         <AccordionRoot type="single">
           <AccordionItem value="common">
             <AccordionTrigger>
-              123
+              Style
             </AccordionTrigger>
             <AccordionContent>
-              <div className="flex flex-nowrap items-center justify-between gap-1">
-                <div>Name</div>
-              </div>
-              <Input
-                value={node.data.name}
-                onInput={onInput}
-              />
+              <label className="flex flex-col flex-nowrap gap-1">
+                Name
+                <Input
+                  value={node.data.name}
+                  onInput={onInput}
+                />
+              </label>
+              <label className="flex flex-col flex-nowrap gap-1">
+                Resource
+                <Input
+                  value={node.data.resource}
+                  onInput={onInput}
+                />
+              </label>
             </AccordionContent>
           </AccordionItem>
         </AccordionRoot>

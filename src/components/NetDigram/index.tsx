@@ -6,7 +6,7 @@ import {
 } from 'reactflow';
 import { Canvas } from 'components/NetDigram/Canvas';
 import { Controls } from 'components/diagram/controls';
-import { SelectionToolbar } from 'components/diagram/toobar/SelectionToolbar';
+// import { SelectionToolbar } from 'components/diagram/toobar/SelectionToolbar';
 import { Inspector } from 'components/NetDigram/Inspector';
 import { Drop, DropIdEnum } from 'components/ui/Drop';
 
@@ -15,8 +15,8 @@ export function NetDiagram() {
     <div className="text-xs">
       <DndContext>
         <ReactFlowProvider>
-          <SelectionToolbar />
-          <div className="flex h-screen w-screen select-none flex-nowrap overflow-hidden">
+          {/* <SelectionToolbar /> */}
+          <div className="flex h-screen w-screen flex-nowrap overflow-hidden">
             <div className="flex h-full w-full grow flex-nowrap">
               <div className="h-full w-[240px] border-r">
                 <Stencil />
