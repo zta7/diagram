@@ -1,13 +1,10 @@
-import { Field, FieldProps } from 'components/ui/Field';
 import { InputHTMLAttributes, forwardRef } from 'react';
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & FieldProps
+export type InputProps = InputHTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ append, prepend, ...rest }, ref) => (
-    <Field append={append} prepend={prepend}>
-      <input {...rest} ref={ref} />
-    </Field>
+  (props, ref) => (
+    <input {...props} ref={ref} />
   ),
 );
 Input.displayName = 'Input';

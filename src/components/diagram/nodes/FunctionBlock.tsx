@@ -12,6 +12,7 @@ import { BasicNode } from 'components/diagram/nodes/BasicNode';
 import {
   AccordionRoot, AccordionContent, AccordionItem, AccordionTrigger,
 } from 'components/ui/According';
+import { Field } from 'components/ui/Field';
 
 type ConnectionSource = Pick<Connection, 'source' | 'sourceHandle'>
 // type ConnectionTarget = Pick<Connection, 'target' | 'targetHandle'>
@@ -200,11 +201,14 @@ export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: 
             <AccordionContent>
               {/* <label className="flex flex-col flex-nowrap gap-1">
                 Name */}
-              <Input
+              <Field
                 prepend="Name"
-                value={node.data.name}
-                onInput={onInput}
-              />
+              >
+                <Input
+                  value={node.data.name}
+                  onInput={onInput}
+                />
+              </Field>
               {/* </label> */}
               <label className="flex flex-col flex-nowrap gap-1">
                 Resource

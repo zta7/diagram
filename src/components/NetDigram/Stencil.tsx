@@ -73,12 +73,13 @@ export function Stencil() {
   const [search, setSearch] = useState('');
   return (
     <>
-      <Input
-        append={<MdSearch />}
-        placeholder="Search"
-        value={search}
-        onInput={(evt: ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value)}
-      />
+      <Field append={<MdSearch />} className="px-2">
+        <Input
+          placeholder="Search"
+          value={search}
+          onInput={(evt: ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value)}
+        />
+      </Field>
       <AccordionRoot type="single">
         {
           stencil.map((e) => (
