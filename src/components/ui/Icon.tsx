@@ -1,14 +1,18 @@
-import * as React from 'react';
-import cx from 'classnames'
+import { classed } from '@tw-classed/react';
 
-export const Icon = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  (props, ref) => {
-    const { className, ...rest } = props
-    return (
-    <div
-      className={cx(['btn-ghost btn-square btn-xs btn no-animation', className])} 
-      { ...rest }
-    />
-    )
-  }
-)
+export const Icon = classed.div('bg-red', {
+  // variants: {
+  //   size: {
+  //     default: 'h-8 px-2 py-1',
+  //   },
+  //   variant: {
+  //     standard: 'border-b',
+  //   },
+  // },
+  // defaultVariants: {
+  //   size: 'default',
+  //   variant: 'standard',
+  // },
+});
+
+Icon.displayName = 'Icon';

@@ -198,13 +198,14 @@ export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: 
               Style
             </AccordionTrigger>
             <AccordionContent>
-              <label className="flex flex-col flex-nowrap gap-1">
-                Name
-                <Input
-                  value={node.data.name}
-                  onInput={onInput}
-                />
-              </label>
+              {/* <label className="flex flex-col flex-nowrap gap-1">
+                Name */}
+              <Input
+                prepend="Name"
+                value={node.data.name}
+                onInput={onInput}
+              />
+              {/* </label> */}
               <label className="flex flex-col flex-nowrap gap-1">
                 Resource
                 <Input

@@ -28,6 +28,8 @@
     "@radix-ui/react-label": "^2.0.1",
     "@radix-ui/react-scroll-area": "^1.0.3",
     "@radix-ui/react-separator": "^1.0.2",
+    "@tw-classed/react": "^1.4.3",
+    "class-variance-authority": "^0.5.1",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.5",
     "downshift": "^7.6.0",

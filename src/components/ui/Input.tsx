@@ -1,15 +1,13 @@
-import * as React from 'react';
-import cx from 'classnames';
+import { Field, FieldProps } from 'components/ui/Field';
+import { InputHTMLAttributes, forwardRef } from 'react';
 
-export const Input = React.forwardRef<HTMLInputElement, React.HTMLProps<HTMLInputElement>>(
-  (props, ref) => {
-    const { className, ...rest } = props;
-    return (
-      <input
-        ref={ref}
-        className={cx(['input input-bordered input-xs rounded-none focus:outline-offset-0 focus:outline-1', className])}
-        {...rest}
-      />
-    );
-  },
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & FieldProps
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ append, prepend, ...rest }, ref) => (
+    <Field append={append} prepend={prepend}>
+      <input {...rest} ref={ref} />
+    </Field>
+  ),
 );
+Input.displayName = 'Input';

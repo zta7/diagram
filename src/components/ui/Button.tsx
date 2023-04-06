@@ -1,18 +1,18 @@
-import * as React from 'react';
-import cx from 'classnames';
+import { classed } from '@tw-classed/react';
 
-export const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
-  (props, ref) => {
-    const { className, children, ...rest } = props;
-    return (
-      <button
-        type="button"
-        ref={ref}
-        className={cx(['btn btn-xs btn-square btn-ghost', className])}
-        {...rest}
-      >
-        { children }
-      </button>
-    );
-  },
-);
+export const Button = classed.button('', {
+  // variants: {
+  //   size: {
+  //     default: 'h-8 px-2 py-1',
+  //   },
+  //   variant: {
+  //     standard: 'border-b',
+  //   },
+  // },
+  // defaultVariants: {
+  //   size: 'default',
+  //   variant: 'standard',
+  // },
+});
+
+Button.displayName = 'Button';

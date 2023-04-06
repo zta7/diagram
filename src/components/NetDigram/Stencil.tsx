@@ -7,10 +7,11 @@ import { Drag, DragProp } from 'components/ui/Drag';
 import { DropIdEnum } from 'components/ui/Drop';
 import { Input } from 'components/ui/Input';
 import { Item } from 'components/ui/Item';
-import { MdGifBox, MdInput } from 'react-icons/md';
+import { MdGifBox, MdInput, MdSearch } from 'react-icons/md';
 import {
   ChangeEvent, ReactNode, useState,
 } from 'react';
+import { Field } from 'components/ui/Field';
 
 type StencilProp = Array<{
   id: string
@@ -72,14 +73,12 @@ export function Stencil() {
   const [search, setSearch] = useState('');
   return (
     <>
-      <div className="h-8 border-b">
-        <Input
-          className="h-full w-full border-none"
-          placeholder="Search"
-          value={search}
-          onInput={(evt: ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value)}
-        />
-      </div>
+      <Input
+        append={<MdSearch />}
+        placeholder="Search"
+        value={search}
+        onInput={(evt: ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value)}
+      />
       <AccordionRoot type="single">
         {
           stencil.map((e) => (

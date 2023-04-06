@@ -4,9 +4,20 @@ module.exports = {
   // important: true,
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {}
+    extend: {},
   },
   plugins: [
-    require("daisyui")
+    // eslint-disable-next-line global-require
+    require('daisyui'),
   ],
-}
+  daisyui: {
+    styled: false,
+    themes: true,
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: '',
+    darkTheme: 'dark',
+  },
+};

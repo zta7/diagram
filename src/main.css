@@ -10,6 +10,11 @@
   @apply border-2 border-primary border-solid
 }
 
+input {
+  @apply w-full outline-none
+}
+
+
 /* .validationflow .react-flow__node {
   width: 150px;
   border-radius: 5px;
