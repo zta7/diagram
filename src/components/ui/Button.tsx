@@ -1,17 +1,13 @@
 import { classed } from '@tw-classed/react';
 
-export const Button = classed.button('', {
+export const Button = classed.button('px-1 py-1 text-base-content hover:bg-base-200 active:bg-base-300 rounded-md', {
   // variants: {
-  //   size: {
-  //     default: 'h-8 px-2 py-1',
-  //   },
-  //   variant: {
-  //     standard: 'border-b',
+  //   color: {
+  //     primary: 'bg-primary',
   //   },
   // },
   // defaultVariants: {
-  //   size: 'default',
-  //   variant: 'standard',
+  //   color: 'primary',
   // },
 });
 

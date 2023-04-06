@@ -100,7 +100,6 @@ export function Stencil() {
             </AccordionItem>
           ))
         }
-
         {/* <AccordionItem value="item-1">
           <AccordionTrigger>用户输入控件</AccordionTrigger>
           <AccordionContent>

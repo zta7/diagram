@@ -1,20 +1,22 @@
 import { classed, ComponentProps, deriveClassed } from '@tw-classed/react';
 import { ReactNode } from 'react';
 
-const FieldBase = classed.div('w-full outline-none transition-colors flex items-center', {
+const FieldBase = classed.div('outline-none transition-colors flex items-center overflow-hidden', {
   variants: {
     size: {
-      default: 'h-8',
+      md: 'h-8 text-sm',
+      sm: 'h-6 text-xs',
     },
     variant: {
       standard: 'border-b',
+      outline: 'border px-1',
     },
     color: {
       primary: 'hover:border-primary focus-within:border-primary-focus',
     },
   },
   defaultVariants: {
-    size: 'default',
+    size: 'md',
     variant: 'standard',
     color: 'primary',
   },
@@ -22,20 +24,24 @@ const FieldBase = classed.div('w-full outline-none transition-colors flex items-
 
 export type FieldProps = {
   append?: ReactNode;
-  prepend?: ReactNode
+  prepend?: ReactNode;
+  label?: string
 };
 
 export type Props = ComponentProps<typeof FieldBase> & FieldProps
 
 export const Field = deriveClassed<typeof FieldBase, Props>(
   ({
-    children, append, prepend, ...rest
+    children, append, prepend, label, ...rest
   }, ref) => (
-    <FieldBase {...rest} ref={ref}>
-      {prepend && <span className="mr-[1px]">{prepend}</span>}
-      <span className="grow">{children}</span>
-      {append && <span className="ml-[1px]">{append}</span>}
-    </FieldBase>
+    <div className="flex flex-col">
+      { label && <label className="mb-1">{label}</label>}
+      <FieldBase {...rest} ref={ref}>
+        {prepend && <span className="pr-[2px]">{prepend}</span>}
+        <span className="grow">{children}</span>
+        {append && <span className="pl-[2px]">{append}</span>}
+      </FieldBase>
+    </div>
   ),
 );
 

@@ -202,7 +202,9 @@ export function FunctionBlockInspector({ node, setNode }: {node: Node, setNode: 
               {/* <label className="flex flex-col flex-nowrap gap-1">
                 Name */}
               <Field
-                prepend="Name"
+                label="Name"
+                variant="outline"
+                size="sm"
               >
                 <Input
                   value={node.data.name}
