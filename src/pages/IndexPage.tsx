@@ -10,7 +10,12 @@ export function IndexPage() {
       {
         app.left && (
         <div className="bg-base-100 min-w-[240px]">
-          <Button className="h-8 w-full">123</Button>
+          <Button square>
+            <FlexRow className="h-8 w-full">
+              <span>123</span>
+              <Button className="hover:bg-base-300 active:bg-base-300">TT</Button>
+            </FlexRow>
+          </Button>
         </div>
         )
       }
