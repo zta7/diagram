@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.react-flow__node.selected, .react-flow__node:focus, .react-flow__node:focus-within{
+@layer base {
+  :root {
+    --p: 198deg 93% 60%;
+    /* ... */
+  }
+}
+
+/* .react-flow__node.selected, .react-flow__node:focus, .react-flow__node:focus-within{
   @apply outline outline-2 outline-primary outline-offset-2
 }
 
@@ -12,7 +19,7 @@
 
 input {
   @apply w-full outline-none
-}
+} */
 
 
 /* .validationflow .react-flow__node {
