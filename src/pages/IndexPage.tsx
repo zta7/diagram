@@ -1,5 +1,4 @@
 import { Button } from 'components/ui/Button';
-import { FlexRow } from 'components/ui/FlexRow';
 import { useAppStore } from 'store/app';
 import { shallow } from 'zustand/shallow';
 
@@ -9,12 +8,12 @@ export function IndexPage() {
     <div className="flex h-full w-full flex-nowrap">
       {
         app.left && (
-        <div className="bg-base-100 min-w-[240px]">
-          <Button square>
-            <FlexRow className="h-8 w-full">
-              <span>123</span>
-              <Button className="hover:bg-base-300 active:bg-base-300">TT</Button>
-            </FlexRow>
+        <div className="bg-base-100 w-[240px]">
+          <Button square className="[&:active:not(:has(button:active))]:bg-base-300 flex h-8 w-full flex-nowrap items-center justify-between" as="div">
+            {/* <FlexRow className="h-8 w-full"> */}
+            <div className="overflow-hidden">Labelllll...............................LabelllllLabelllllLabelllllLabelllllLabelllllLabelllllLabelllll</div>
+            <Button className="hover:bg-base-300 active:bg-base-400" icon>TT</Button>
+            {/* </FlexRow> */}
           </Button>
         </div>
         )
