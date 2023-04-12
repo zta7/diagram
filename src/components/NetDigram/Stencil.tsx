@@ -2,7 +2,7 @@ import { FunctionBlockDragOverlay, FunctionBlockNode } from 'components/diagram/
 import { InputNode } from 'components/diagram/nodes/InputNode';
 import {
   AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent,
-} from 'components/ui/According';
+} from 'components/ui/According/main';
 import { Drag, DragProp } from 'components/ui/Drag';
 import { DropIdEnum } from 'components/ui/Drop';
 import { Input } from 'components/ui/Input';

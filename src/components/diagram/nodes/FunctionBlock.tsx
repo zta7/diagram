@@ -11,7 +11,7 @@ import { onNodeReset } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';
 import {
   AccordionRoot, AccordionContent, AccordionItem, AccordionTrigger,
-} from 'components/ui/According';
+} from 'components/ui/According/main';
 import { Field } from 'components/ui/Field';
 
 type ConnectionSource = Pick<Connection, 'source' | 'sourceHandle'>

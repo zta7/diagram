@@ -7,7 +7,7 @@ export const Button = classed.button('hover:bg-base-200 [&:active:not(:has(butto
       false: 'rounded',
     },
     icon: {
-      true: ' text-base-800',
+      true: ' px-[2px] py-[2px] text-base-800',
       false: 'px-2 py-1 flex items-center flex-nowrap gap-2',
     },
   },

@@ -23,7 +23,7 @@ import { SelectionToolbar } from 'components/diagram/toobar/SelectionToolbar';
 import { InputNode, InputTemplate, InputType } from 'components/diagram/nodes/InputNode';
 import {
   AccordionContent, AccordionItem, AccordionRoot, AccordionTrigger,
-} from 'components/ui/According';
+} from 'components/ui/According/main';
 import { Item } from 'components/ui/Item';
 import { MdGifBox, MdInput } from 'react-icons/md';
 import { SelectionInspector } from 'components/diagram/inspector/SelectionInspector';

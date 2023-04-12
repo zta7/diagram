@@ -1,6 +1,6 @@
 // import { NetDiagram } from 'components/NetDigram';
 
-import { IndexPage } from 'pages/IndexPage';
+import { IndexPage } from 'pages/IndexPage/main';
 
 function App() {
   return (
