@@ -1,4 +1,3 @@
-import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
@@ -16,21 +15,42 @@ export default {
   // important: true,
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extends: {
+    extend: {
       colors: {
         primary: 'hsl(var(--p) / <alpha-value>)',
+      },
+      keyframes: {
+        slideDown: {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        slideUp: {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+        slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
       },
     },
   },
   plugins: [
     // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
     require('tailwindcss-themer')({
+      defaultTheme: {
+        extend: {
+          colors: {
+            base: colors.red,
+          },
+        },
+      },
       themes: [
         {
           name: 'light',
           extend: {
             colors: {
-              base: colors.zinc,
+              base: colors.stone,
             },
           },
         },
@@ -42,7 +62,15 @@ export default {
             },
           },
         },
+        {
+          name: 'sky',
+          extend: {
+            colors: {
+              base: reverseColors(colors.sky),
+            },
+          },
+        },
       ],
     }),
   ],
-} as Config;
+};
