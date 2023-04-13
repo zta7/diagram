@@ -1,19 +1,26 @@
 import { classed } from '@tw-classed/react';
 
-export const Button = classed.button('hover:bg-base-200 [&:active:not(:has(button:active))]:bg-base-300 cursor-pointer select-none', {
+export const Button = classed.button('cursor-pointer select-none', {
   variants: {
     square: {
       true: 'rounded-none',
       false: 'rounded',
     },
     icon: {
-      true: ' px-[2px] py-[2px] text-base-800',
-      false: 'px-2 py-1 flex items-center flex-nowrap gap-2',
+      md: 'w-4 h-4 px-[2px] py-[2px]',
+      lg: 'w-7 h-7 px-[3px] py-[3px]',
+      true: 'w-full h-full',
+      false: 'px-2 py-1 flex items-center flex-nowrap',
+    },
+    color: {
+      base: 'hover:bg-base-200 [&:active:not(:has(button:active))]:bg-base-300',
+      deeper: 'hover:bg-base-300 [&:active:not(:has(button:active))]:bg-base-400',
     },
   },
   defaultVariants: {
     square: false,
     icon: false,
+    color: 'base',
   },
 });
 

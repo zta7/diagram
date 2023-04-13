@@ -3,6 +3,7 @@ import {
   AccordionContent, AccordionItem, AccordionRoot, AccordionTrigger,
 } from 'components/ui/According/main';
 import { Button } from 'components/ui/Button';
+import { Item, ItemSection } from './Item';
 
 type TreeNode = {
   id: string
@@ -13,30 +14,34 @@ type TreeNode = {
   }>
  }
 
-function Node({ node }: {node: TreeNode}) {
+function Node({ node, level }: {node: TreeNode, level: number}) {
   return (
     <div>
       {
         node.children && node.children.length > 0
           ? (
             <AccordionItem value={node.id}>
-              <Button className="w-full" as="div">
-                <AccordionTrigger className="transition-transform data-[state=open]:rotate-90">
-                  <Button as="div" icon className="hover:bg-base-300 [&:active:not(:has(button:active))]:bg-base-400 h-4 w-4">
-                    <ChevronRightIcon />
-                  </Button>
-                </AccordionTrigger>
-                <span>{node.label}</span>
-              </Button>
+              <Item className="w-full" as="div">
+                {/* <div style={{ width: `${1 * level}rem` }} /> */}
+                <ItemSection variant="avatar">
+                  <AccordionTrigger className="transition-transform data-[state=open]:rotate-90">
+                    <Button color="deeper" icon as="div">
+                      <ChevronRightIcon />
+                    </Button>
+                  </AccordionTrigger>
+                </ItemSection>
+                <ItemSection>{node.label}</ItemSection>
+              </Item>
               <AccordionContent>
                 {
-                  node.children.map((e) => <Node node={e} key={e.id} />)
+                  node.children.map((e) => <Node node={e} key={e.id} level={level + 1} />)
                 }
               </AccordionContent>
             </AccordionItem>
           ) : (
             <Button className="w-full" as="div">
-              <div className="h-4 w-4 text-center text-xl leading-3">·</div>
+              {/* <div style={{ width: `${1 * level}rem` }} /> */}
+              <div className="mr-2 h-4 w-4 text-center font-semibold leading-4">·</div>
               <span>{node.label}</span>
             </Button>
           )
@@ -45,14 +50,15 @@ function Node({ node }: {node: TreeNode}) {
   );
 }
 
-export function Tree({ data } : { data: Array<TreeNode> }) {
+export function Tree({ data, className } : { data: Array<TreeNode>, className: string }) {
   return (
-    <AccordionRoot type="multiple">
+    <AccordionRoot type="multiple" className={className}>
       {
         data.map((e) => (
           <Node
             node={e}
             key={e.id}
+            level={0}
           />
         ))
       }

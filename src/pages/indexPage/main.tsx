@@ -1,21 +1,30 @@
 import { useAppStore } from 'store/app';
 import { shallow } from 'zustand/shallow';
-import { Sidebar } from 'pages/indexPage/sidebar/main';
+import { Sidebar } from 'pages/indexPage/leftSidebar/main';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
+import { Button } from 'components/ui/Button';
 
 export function IndexPage() {
-  const app = useAppStore((state) => ({ left: state.leftSidebar, right: state.rightSidebar }), shallow);
+  const { left, right } = useAppStore((state) => ({ left: state.leftSidebar, right: state.rightSidebar }), shallow);
   return (
-    <div className="flex h-full w-full flex-nowrap">
+    <div className="flex h-full w-full shrink-0 flex-nowrap">
       {
-        app.left && <Sidebar />
+        left && <Sidebar />
       }
       <div className="bg-base-50 grow">
-        456
+        <div className="flex h-11 flex-nowrap items-center justify-between px-4">
+          <div>😊</div>
+          <div>
+            <Button icon="lg">
+              <EllipsisHorizontalIcon />
+            </Button>
+          </div>
+        </div>
       </div>
       {
-        app.right && (
-        <div>
-          789
+        right && (
+        <div className="bg-base-50">
+          7891231
         </div>
         )
       }
