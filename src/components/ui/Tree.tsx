@@ -21,11 +21,11 @@ function Node({ node, level }: {node: TreeNode, level: number}) {
         node.children && node.children.length > 0
           ? (
             <AccordionItem value={node.id}>
-              <Item className="w-full" as="div">
+              <Item className="w-full">
                 {/* <div style={{ width: `${1 * level}rem` }} /> */}
                 <ItemSection variant="avatar">
-                  <AccordionTrigger className="transition-transform data-[state=open]:rotate-90">
-                    <Button color="deeper" icon as="div">
+                  <AccordionTrigger className="transition-transform data-[state=open]:rotate-90" asChild>
+                    <Button color="deeper" icon="md" as="div">
                       <ChevronRightIcon />
                     </Button>
                   </AccordionTrigger>

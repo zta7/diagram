@@ -7,9 +7,9 @@ export const Button = classed.button('cursor-pointer select-none', {
       false: 'rounded',
     },
     icon: {
-      md: 'w-4 h-4 px-[2px] py-[2px]',
-      lg: 'w-7 h-7 px-[3px] py-[3px]',
-      true: 'w-full h-full',
+      md: 'px-[2px] py-[2px]',
+      lg: 'px-[3px] py-[3px]',
+      // true: 'w-full h-full',
       false: 'px-2 py-1 flex items-center flex-nowrap',
     },
     color: {

@@ -29,10 +29,10 @@ export const Item = classed.div('cursor-pointer w-full hover:bg-base-200 [&:acti
 
 Item.displayName = 'Item';
 
-export const ItemSection = classed.div('first:pr-2 [:not(:nth-child(2)):last]:pl-2', {
+export const ItemSection = classed.div('first:mr-2', {
   variants: {
     variant: {
-      avatar: '[&:svg]:w-4',
+      avatar: '[&_svg]:w-4 [&_svg]:h-4',
       side: '',
     },
   },
