@@ -12,6 +12,7 @@ import {
   useInteractions,
   useMergeRefs,
   FloatingPortal,
+  autoPlacement,
 } from '@floating-ui/react';
 import type { Placement } from '@floating-ui/react';
 
@@ -38,12 +39,13 @@ export function useTooltip({
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
+    strategy: 'absolute',
     middleware: [
       offset(5),
       flip({
         fallbackAxisSideDirection: 'start',
       }),
-      shift({ padding: 5 }),
+      shift(),
     ],
   });
 
@@ -123,14 +125,14 @@ export const TooltipTrigger = React.forwardRef<
   }
 
   return (
-    <button
+    <div
       ref={ref}
       // The user can style the trigger based on the state
       data-state={context.open ? 'open' : 'closed'}
       {...context.getReferenceProps(props)}
     >
       {children}
-    </button>
+    </div>
   );
 });
 
