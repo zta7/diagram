@@ -1,5 +1,6 @@
 import { ChevronDoubleLeftIcon, Cog8ToothIcon } from '@heroicons/react/24/solid';
 import { Button } from 'components/ui/Button';
+import { Icon } from 'components/ui/Icon';
 import { Item, ItemSection, List } from 'components/ui/Item';
 import { Tooltip, TooltipTrigger, TooltipContent } from 'components/ui/Tooltip';
 import { Navbar } from 'pages/indexPage/leftSidebar/Navbar';
@@ -10,8 +11,10 @@ export function Sidebar() {
       <Item square className="h-11 shrink-0">
         <ItemSection className="grow overflow-hidden font-bold">Welcome</ItemSection>
         <ItemSection>
-          <Button className="opacity-0 transition-opacity group-hover/sidebar:opacity-100" icon="lg" color="deeper">
-            <ChevronDoubleLeftIcon />
+          <Button className="p-[3px] opacity-0 transition-opacity group-hover/sidebar:opacity-100" color="deeper">
+            <Icon size="xl">
+              <ChevronDoubleLeftIcon />
+            </Icon>
           </Button>
         </ItemSection>
         {/* <Tooltip placement="bottom">
@@ -28,10 +31,12 @@ export function Sidebar() {
           </TooltipContent>
         </Tooltip> */}
       </Item>
-      <List className="mb-4 shrink-0">
-        <Item className="px-2">
-          <ItemSection variant="avatar">
-            <Cog8ToothIcon />
+      <List className="mb-4 shrink-0 px-1">
+        <Item>
+          <ItemSection>
+            <Icon size="lg">
+              <Cog8ToothIcon />
+            </Icon>
           </ItemSection>
           <ItemSection>Settings</ItemSection>
         </Item>

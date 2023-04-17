@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   useFloating,
   autoUpdate,
@@ -11,9 +11,9 @@ import {
   useRole,
   useInteractions,
   useMergeRefs,
-  FloatingPortal
-} from "@floating-ui/react";
-import type { Placement } from "@floating-ui/react";
+  FloatingPortal,
+} from '@floating-ui/react';
+import type { Placement } from '@floating-ui/react';
 
 interface TooltipOptions {
   initialOpen?: boolean;
@@ -24,9 +24,9 @@ interface TooltipOptions {
 
 export function useTooltip({
   initialOpen = false,
-  placement = "top",
+  placement = 'top',
   open: controlledOpen,
-  onOpenChange: setControlledOpen
+  onOpenChange: setControlledOpen,
 }: TooltipOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen);
 
@@ -41,24 +41,24 @@ export function useTooltip({
     middleware: [
       offset(5),
       flip({
-        fallbackAxisSideDirection: "start"
+        fallbackAxisSideDirection: 'start',
       }),
-      shift({ padding: 5 })
-    ]
+      shift({ padding: 5 }),
+    ],
   });
 
-  const context = data.context;
+  const { context } = data;
 
   const hover = useHover(context, {
     move: false,
     delay: { open: 200 },
-    enabled: controlledOpen == null
+    enabled: controlledOpen == null,
   });
   const focus = useFocus(context, {
-    enabled: controlledOpen == null
+    enabled: controlledOpen == null,
   });
   const dismiss = useDismiss(context);
-  const role = useRole(context, { role: "tooltip" });
+  const role = useRole(context, { role: 'tooltip' });
 
   const interactions = useInteractions([hover, focus, dismiss, role]);
 
@@ -67,9 +67,9 @@ export function useTooltip({
       open,
       setOpen,
       ...interactions,
-      ...data
+      ...data,
     }),
-    [open, setOpen, interactions, data]
+    [open, setOpen, interactions, data],
   );
 }
 
@@ -81,7 +81,7 @@ export const useTooltipContext = () => {
   const context = React.useContext(TooltipContext);
 
   if (context == null) {
-    throw new Error("Tooltip components must be wrapped in <Tooltip />");
+    throw new Error('Tooltip components must be wrapped in <Tooltip />');
   }
 
   return context;
@@ -104,7 +104,7 @@ export function Tooltip({
 export const TooltipTrigger = React.forwardRef<
   HTMLElement,
   React.HTMLProps<HTMLElement> & { asChild?: boolean }
->(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
+>(({ children, asChild = false, ...props }, propRef) => {
   const context = useTooltipContext();
   const childrenRef = (children as any).ref;
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
@@ -117,8 +117,8 @@ export const TooltipTrigger = React.forwardRef<
         ref,
         ...props,
         ...children.props,
-        "data-state": context.open ? "open" : "closed"
-      })
+        'data-state': context.open ? 'open' : 'closed',
+      }),
     );
   }
 
@@ -126,7 +126,7 @@ export const TooltipTrigger = React.forwardRef<
     <button
       ref={ref}
       // The user can style the trigger based on the state
-      data-state={context.open ? "open" : "closed"}
+      data-state={context.open ? 'open' : 'closed'}
       {...context.getReferenceProps(props)}
     >
       {children}
@@ -137,7 +137,7 @@ export const TooltipTrigger = React.forwardRef<
 export const TooltipContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLProps<HTMLDivElement>
->(function TooltipContent(props, propRef) {
+>((props, propRef) => {
   const context = useTooltipContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
@@ -147,7 +147,7 @@ export const TooltipContent = React.forwardRef<
     <FloatingPortal>
       <div
         ref={ref}
-        className="whitespace-nowrap rounded bg-base-950 px-2 py-1 text-xs font-medium"
+        className="bg-base-950 whitespace-nowrap rounded px-2 py-1 text-xs font-medium"
         style={{
           position: context.strategy,
           top: context.y ?? 0,

@@ -3,6 +3,7 @@ import { shallow } from 'zustand/shallow';
 import { Sidebar } from 'pages/indexPage/leftSidebar/main';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 import { Button } from 'components/ui/Button';
+import { Icon } from 'components/ui/Icon';
 
 export function IndexPage() {
   const { left, right } = useAppStore((state) => ({ left: state.leftSidebar, right: state.rightSidebar }), shallow);
@@ -15,8 +16,10 @@ export function IndexPage() {
         <div className="flex h-11 flex-nowrap items-center justify-between px-4">
           <div>😊</div>
           <div>
-            <Button icon="lg">
-              <EllipsisHorizontalIcon />
+            <Button className="p-[3px]">
+              <Icon size="xl">
+                <EllipsisHorizontalIcon />
+              </Icon>
             </Button>
           </div>
         </div>

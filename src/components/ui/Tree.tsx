@@ -1,9 +1,10 @@
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronRightIcon, StopIcon } from '@heroicons/react/24/solid';
 import {
   AccordionContent, AccordionItem, AccordionRoot, AccordionTrigger,
 } from 'components/ui/According/main';
 import { Button } from 'components/ui/Button';
-import { Item, ItemSection } from './Item';
+import { Item, ItemSection } from 'components/ui/Item';
+import { Icon } from './Icon';
 
 type TreeNode = {
   id: string
@@ -21,12 +22,13 @@ function Node({ node, level }: {node: TreeNode, level: number}) {
         node.children && node.children.length > 0
           ? (
             <AccordionItem value={node.id}>
-              <Item className="w-full">
-                {/* <div style={{ width: `${1 * level}rem` }} /> */}
-                <ItemSection variant="avatar">
+              <Item className="w-full" style={{ paddingLeft: `${1 * level + 0.75}rem` }}>
+                <ItemSection>
                   <AccordionTrigger className="transition-transform data-[state=open]:rotate-90" asChild>
-                    <Button color="deeper" icon="md" as="div">
-                      <ChevronRightIcon />
+                    <Button color="deeper" className="p-[2px]">
+                      <Icon>
+                        <ChevronRightIcon />
+                      </Icon>
                     </Button>
                   </AccordionTrigger>
                 </ItemSection>
@@ -39,11 +41,16 @@ function Node({ node, level }: {node: TreeNode, level: number}) {
               </AccordionContent>
             </AccordionItem>
           ) : (
-            <Button className="w-full" as="div">
-              {/* <div style={{ width: `${1 * level}rem` }} /> */}
-              <div className="mr-2 h-4 w-4 text-center font-semibold leading-4">·</div>
-              <span>{node.label}</span>
-            </Button>
+            <Item className="w-full" style={{ paddingLeft: `${1 * level + 0.75}rem` }}>
+              <ItemSection>
+                <Icon>
+                  <StopIcon />
+                </Icon>
+              </ItemSection>
+              <ItemSection>
+                {node.label}
+              </ItemSection>
+            </Item>
           )
       }
     </div>

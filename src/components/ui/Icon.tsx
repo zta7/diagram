@@ -1,18 +1,33 @@
-import { classed } from '@tw-classed/react';
+import { classed, ComponentProps, deriveClassed } from '@tw-classed/react';
+import { ReactNode } from 'react';
 
-export const Icon = classed.div('bg-red', {
-  // variants: {
-  //   size: {
-  //     default: 'h-8 px-2 py-1',
-  //   },
-  //   variant: {
-  //     standard: 'border-b',
-  //   },
-  // },
-  // defaultVariants: {
-  //   size: 'default',
-  //   variant: 'standard',
-  // },
+const IconBase = classed.div('', {
+  variants: {
+    size: {
+      md: 'w-3 h-3',
+      lg: 'w-4 h-4',
+      xl: 'w-5 h-5',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
 });
+
+export type IconProps = {
+  children: ReactNode
+};
+
+export type Props = ComponentProps<typeof IconBase> & IconProps
+
+export const Icon = deriveClassed<typeof IconBase, Props>(
+  ({
+    children, ...rest
+  }, ref) => (
+    <IconBase ref={ref} {...rest}>
+      { children }
+    </IconBase>
+  ),
+);
 
 Icon.displayName = 'Icon';
