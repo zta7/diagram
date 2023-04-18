@@ -32,8 +32,7 @@ Item.displayName = 'Item';
 export const ItemSection = classed.div('first:mr-2', {
   variants: {
     variant: {
-      avatar: '[&_svg]:w-full [&_svg]:h-full w-4 h-4 flex items-center justify-center',
-      side: '',
+      side: 'items-end pl-4 text-xs text-base-400 font-light',
     },
   },
   // defaultVariants: {

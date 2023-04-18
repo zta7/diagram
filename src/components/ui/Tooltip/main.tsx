@@ -12,7 +12,6 @@ import {
   useInteractions,
   useMergeRefs,
   FloatingPortal,
-  autoPlacement,
 } from '@floating-ui/react';
 import type { Placement } from '@floating-ui/react';
 
@@ -39,7 +38,6 @@ export function useTooltip({
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
-    strategy: 'absolute',
     middleware: [
       offset(5),
       flip({
@@ -59,10 +57,10 @@ export function useTooltip({
   const focus = useFocus(context, {
     enabled: controlledOpen == null,
   });
-  const dismiss = useDismiss(context);
+  // const dismiss = useDismiss(context);
   const role = useRole(context, { role: 'tooltip' });
 
-  const interactions = useInteractions([hover, focus, dismiss, role]);
+  const interactions = useInteractions([hover, focus, role]);
 
   return React.useMemo(
     () => ({
@@ -146,7 +144,7 @@ export const TooltipContent = React.forwardRef<
   if (!context.open) return null;
 
   return (
-    <FloatingPortal>
+    <FloatingPortal root={document.getElementById('app')}>
       <div
         ref={ref}
         className="bg-base-950 whitespace-nowrap rounded px-2 py-1 text-xs font-medium"
@@ -160,3 +158,15 @@ export const TooltipContent = React.forwardRef<
     </FloatingPortal>
   );
 });
+
+
+// import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+// import { classed } from '@tw-classed/react';
+
+// export const Tooltip = classed(TooltipPrimitive.Root, '');
+// export const TooltipTrigger = classed(TooltipPrimitive.TooltipTrigger, '');
+// export const e = () => {
+//   return (
+    
+//   )
+// }

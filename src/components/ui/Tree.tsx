@@ -26,7 +26,7 @@ function Node({ node, level }: {node: TreeNode, level: number}) {
                 <ItemSection>
                   <AccordionTrigger className="transition-transform data-[state=open]:rotate-90" asChild>
                     <Button color="deeper" className="p-[2px]">
-                      <Icon>
+                      <Icon size="sm">
                         <ChevronRightIcon />
                       </Icon>
                     </Button>
@@ -43,7 +43,7 @@ function Node({ node, level }: {node: TreeNode, level: number}) {
           ) : (
             <Item className="w-full" style={{ paddingLeft: `${1 * level + 0.75}rem` }}>
               <ItemSection>
-                <Icon>
+                <Icon size="sm">
                   <StopIcon />
                 </Icon>
               </ItemSection>

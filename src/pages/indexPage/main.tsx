@@ -1,6 +1,6 @@
 import { useAppStore } from 'store/app';
 import { shallow } from 'zustand/shallow';
-import { Sidebar } from 'pages/indexPage/leftSidebar/main';
+import { Sidebar } from 'pages/indexPage/leftDrawer/main';
 import { MoreBtn } from 'pages/indexPage/MoreBtn';
 
 export function IndexPage() {

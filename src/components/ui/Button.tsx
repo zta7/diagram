@@ -1,6 +1,6 @@
 import { classed } from '@tw-classed/react';
 
-export const Button = classed.button('cursor-pointer select-none flex', {
+export const Button = classed.button('cursor-pointer select-none flex outline-none', {
   variants: {
     square: {
       true: 'rounded-none',
