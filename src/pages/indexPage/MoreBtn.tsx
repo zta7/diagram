@@ -8,18 +8,17 @@ import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/Popover';
 
 export function MoreBtn() {
   return (
-    <>
-      <Button className="p-[3px]">
-        <Icon size="xl">
-          <EllipsisHorizontalIcon />
-        </Icon>
-      </Button>
-      <Menu label="Edit">
-        <Item>123</Item>
-        <Menu label="Share">
-          <Item>456</Item>
-        </Menu>
-      </Menu>
-    </>
+    <Popover>
+      <PopoverTrigger>
+        <Button className="p-[3px]">
+          <Icon size="xl">
+            <EllipsisHorizontalIcon />
+          </Icon>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        123
+      </PopoverContent>
+    </Popover>
   );
 }

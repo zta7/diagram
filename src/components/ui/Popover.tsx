@@ -17,6 +17,7 @@ import {
   FloatingOverlay,
   useHover,
   useFocus,
+  safePolygon,
 } from '@floating-ui/react';
 
 interface PopoverOptions {
@@ -51,32 +52,34 @@ export function usePopover({
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(5),
-      // flip({
-      //   fallbackAxisSideDirection: 'end',
-      // }),
-      // shift({ padding: 5 }),
+      flip({
+        fallbackAxisSideDirection: 'end',
+      }),
+      shift({ padding: 5 }),
     ],
   });
 
   const { context } = data;
 
-  // const click = useClick(context, {
-  //   enabled: controlledOpen == null,
-  // });
+  const click = useClick(context, {
+    enabled: controlledOpen == null,
+  });
   const hover = useHover(context, {
     move: false,
     delay: { open: 200 },
     enabled: controlledOpen == null,
+    handleClose: safePolygon({
+      blockPointerEvents: true,
+    }),
   });
 
   // const focus = useFocus(context, {
   //   enabled: controlledOpen == null,
   // });
 
-  const dismiss = useDismiss(context);
   const role = useRole(context);
 
-  const interactions = useInteractions([hover, role]);
+  const interactions = useInteractions([hover, role, click]);
 
   return React.useMemo(
     () => ({
