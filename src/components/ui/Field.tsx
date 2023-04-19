@@ -34,7 +34,7 @@ export const Field = deriveClassed<typeof FieldBase, Props>(
   ({
     children, append, prepend, label, ...rest
   }, ref) => (
-    <div className="flex flex-col">
+    <div className="flex cursor-pointer flex-col">
       { label && <label className="mb-1">{label}</label>}
       <FieldBase {...rest} ref={ref}>
         {prepend && <span className="pr-[2px]">{prepend}</span>}

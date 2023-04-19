@@ -6,7 +6,7 @@ import { CloseLeftDrawerBtn } from '../CloseLeftDrawerBtn';
 
 export function Sidebar() {
   return (
-    <div className="bg-base-100 group/sidebar flex w-[240px] select-none flex-col flex-nowrap">
+    <div className="bg-base-100 group/sidebar flex w-[240px] flex-col flex-nowrap">
       <Item square className="h-11 shrink-0">
         <ItemSection className="grow overflow-hidden font-bold">Welcome</ItemSection>
         <ItemSection>

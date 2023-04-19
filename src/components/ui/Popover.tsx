@@ -181,7 +181,6 @@ export const PopoverContent = React.forwardRef<
   const { context: floatingContext, ...context } = usePopoverContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
-  console.log('render');
   return (
     <FloatingPortal root={document.getElementById('app')}>
       {context.open && (

@@ -41,7 +41,7 @@ export default {
       defaultTheme: {
         extend: {
           colors: {
-            base: colors.zinc,
+            base: colors.red,
           },
         },
       },

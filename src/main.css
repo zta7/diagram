@@ -3,10 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --p: 198deg 93% 60%;
-    /* ... */
-  }
+
+}
+
+* {
+  outline: none;
 }
 
 /* .react-flow__node.selected, .react-flow__node:focus, .react-flow__node:focus-within{

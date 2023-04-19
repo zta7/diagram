@@ -5,7 +5,7 @@ import {
   Handle, Position, Node, useReactFlow, NodeProps, Connection, addEdge, useStoreApi,
 } from 'reactflow';
 import { Input } from 'components/ui/Input';
-import { Select } from 'components/ui/Select';
+import { Select } from 'components/ui/Select/main';
 import { EventEdgeType } from 'components/diagram/edges/EventEdge';
 import { onNodeReset } from 'components/diagram/helper';
 import { BasicNode } from 'components/diagram/nodes/BasicNode';

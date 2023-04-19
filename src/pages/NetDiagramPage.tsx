@@ -170,7 +170,7 @@ export function NetDiagramPage() {
     <div className="text-xs">
       <DndContext onDragEnd={onDragEnd}>
         <ReactFlowProvider>
-          <div className="flex h-screen w-screen select-none flex-nowrap">
+          <div className="flex h-screen w-screen flex-nowrap">
             <div className="flex h-full w-full grow flex-nowrap">
               <div className="h-full w-[240px] border-r">
                 <div className="h-8 border-b">

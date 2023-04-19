@@ -1,6 +1,6 @@
 import { classed } from '@tw-classed/react';
 
-export const List = classed.div();
+export const List = classed.div('flex flex-col flex-nowrap gap-1 p-1');
 List.displayName = 'List';
 
 export const Item = classed.div('cursor-pointer w-full hover:bg-base-200 [&:active:not(:has(button:active))]:bg-base-300 flex flex-row flex-nowrap px-3 py-1 items-center', {
@@ -8,6 +8,10 @@ export const Item = classed.div('cursor-pointer w-full hover:bg-base-200 [&:acti
     square: {
       true: 'rounded-none',
       false: 'rounded',
+    },
+    active: {
+      true: 'bg-base-300',
+      false: '',
     },
     // icon: {
     //   md: 'w-4 h-4 px-[2px] py-[2px]',
